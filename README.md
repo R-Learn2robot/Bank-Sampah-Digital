@@ -5,22 +5,54 @@ Program ini adalah aplikasi terminal yang dibuat untuk membantu proses digitalis
 
 Aplikasi ini dikembangkan sebagai Proyek Akhir Mata Kuliah Algoritma dan Pemrograman, dan mengikuti pendekatan System Development Life Cycle (SDLC).
 
+👥 Pembuat Program
+
+Program ini dibuat oleh:
+Kelompok 2
+
+Anggota:
+
+1. Ahmad Faiq Zidane
+
+Radit
+
+Fadla
+
 🚀 Fitur Utama
+| No | Fitur                                          |
+| -- | ---------------------------------------------- |
+| 1  | Tambah dan kelola data warga                   |
+| 2  | Input setoran sampah berdasarkan jenis & berat |
+| 3  | Perhitungan saldo otomatis                     |
+| 4  | Pencarian data warga (Searching)               |
+| 5  | Pengurutan saldo (Bubble Sort)                 |
+| 6  | Riwayat transaksi                              |
+| 7  | Simpan dan muat data menggunakan file          |
 
-✔ Tambah data warga
-✔ Setor sampah (otomatis hitung saldo berdasarkan jenis & berat)
-✔ Cari warga (Searching)
-✔ Urutkan warga berdasarkan saldo (Sorting - Bubble Sort)
-✔ Lihat riwayat transaksi
-✔ Simpan data ke file dan memuat kembali setelah aplikasi ditutup
-✔ Tampilan antarmuka berbasis CLI yang sederhana dan mudah digunakan
+🛠️ Konsep Pemrograman yang Digunakan
+| Konsep              | Implementasi                                       |
+| ------------------- | -------------------------------------------------- |
+| Struktur Data       | `struct` dan `array of struct`                     |
+| Searching           | Sequential Search                                  |
+| Sorting             | Bubble Sort                                        |
+| Modular Programming | Fungsi terpisah untuk tiap fitur                   |
+| Persistensi Data    | File handling (`fopen`, `fprintf`, `fscanf`, dll.) |
+| User Interaction    | Sistem menu CLI                                    |
 
-🛠️ Teknologi & Konsep yang Digunakan
-Konsep	Implementasi
-Bahasa	C Programming
-Struktur Data	struct, array of struct
-Algoritma Searching	Sequential Search
-Algoritma Sorting	Bubble Sort
-Modular Function	Semua fitur dibuat dalam fungsi terpisah
-Penyimpanan Data	File handling (fopen, fprintf, fscanf, dll.)
-Format Tampilan	Command Line Interface (CLI)
+▶️ Cara Menjalankan Aplikasi
+| Langkah              | Perintah                           |
+| -------------------- | ---------------------------------- |
+| Clone Repository     | `git clone <link-repo>`            |
+| Masuk Folder         | `cd bank-sampah`                   |
+| Compile              | `gcc bank_sampah.c -o bank_sampah` |
+| Jalankan (Linux/Mac) | `./bank_sampah`                    |
+| Jalankan (Windows)   | `bank_sampah.exe`                  |
+
+🎯 Target Penerapan Aplikasi
+| Calon Pengguna              | Examples                |
+| --------------------------- | ----------------------- |
+| RT/RW & Pengurus Lingkungan | Bank Sampah warga       |
+| Organisasi Sosial           | PKK, Karang Taruna      |
+| Sekolah                     | Program 3R & eco-school |
+| Komunitas Lingkungan        | Volunteer, Eco movement |
+
