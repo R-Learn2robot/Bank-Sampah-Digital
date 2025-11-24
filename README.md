@@ -13,10 +13,11 @@ Kelompok 2
 Anggota:
 
 1. Ahmad Faiq Zidane
+2. Radit
+3. Fadla
+4. rouf
+5. 
 
-Radit
-
-Fadla
 
 🚀 Fitur Utama
 | No | Fitur                                          |
