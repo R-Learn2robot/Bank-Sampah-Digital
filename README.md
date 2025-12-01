@@ -17,7 +17,7 @@ Anggota:
 3. Falda Falisha Aeni
 4. rouf
 5. Dina
-6. Nadisya Azkia Syifana
+6. Nadisya Azkia Syifana 2501186
    
 
 
