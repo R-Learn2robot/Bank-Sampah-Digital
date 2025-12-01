@@ -16,8 +16,13 @@ Anggota:
 2. Radit Wicaksana Putra
 3. Falda Falisha Aeni
 4. rouf
+<<<<<<< HEAD
 5. Dina
 6. Nadisya Azkia Syifana 2501186
+=======
+5. Dina Aulia
+6. Nadisya Azkia Syifana
+>>>>>>> a54ab2906bb85ada48c6d33a6246bfdf2a3e5459
    
 
 
