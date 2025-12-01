@@ -14,7 +14,7 @@ Anggota:
 
 1. Ahmad Faiq Zidane
 2. Radit Wicaksana Putra
-3. Falda Falisha Aeni
+3. Falda Falisha Aeni_2511508
 4. Muhammad Abdur Rouf_2510726
 6. Nadisya Azkia Syifana_2501186
 5. Dina Aulia_2502334
