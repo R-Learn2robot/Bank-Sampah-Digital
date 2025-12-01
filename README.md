@@ -15,15 +15,9 @@ Anggota:
 1. Ahmad Faiq Zidane
 2. Radit Wicaksana Putra
 3. Falda Falisha Aeni
-4. rouf
-<<<<<<< HEAD
-5. Dina
-6. Nadisya Azkia Syifana 2501186
-=======
+4. Muhammad Abdur Rouf_2510726
+6. Nadisya Azkia Syifana_2501186
 5. Dina Aulia
-6. Nadisya Azkia Syifana
->>>>>>> a54ab2906bb85ada48c6d33a6246bfdf2a3e5459
-   
 
 
 🚀 Fitur Utama
