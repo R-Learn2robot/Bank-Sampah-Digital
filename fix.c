@@ -4,5 +4,5 @@
 #include <stdbool.h>
 
 int main() {
-    
+    bool on = true;
 }
