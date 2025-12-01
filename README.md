@@ -13,7 +13,7 @@ Kelompok 2
 Anggota:
 
 1. Ahmad Faiq Zidane
-2. Radit
+2. Radit Wicaksana Putra
 3. Fadla
 4. rouf
 5. Dina
