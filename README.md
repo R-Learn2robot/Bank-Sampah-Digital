@@ -18,6 +18,7 @@ Anggota:
 4. Muhammad Abdur Rouf_2510726
 6. Nadisya Azkia Syifana_2501186
 5. Dina Aulia
+6. Affan Lie Dhiyaa'ulrahman
 
 
 🚀 Fitur Utama
