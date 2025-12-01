@@ -16,7 +16,7 @@ Anggota:
 2. Radit Wicaksana Putra
 3. Falda Falisha Aeni
 4. rouf
-5. Dina
+5. Dina Aulia
 6. Nadisya Azkia Syifana
    
 
