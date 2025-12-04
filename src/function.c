@@ -130,3 +130,7 @@ void sortRWRTNama() {
     }
 }
 
+//ini fungsi buat nyari si warganya melalui nik
+void pencarianData(){//input nik
+
+}
