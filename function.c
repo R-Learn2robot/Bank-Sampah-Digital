@@ -130,32 +130,3 @@ void sortRWRTNama() {
     }
 }
 
-void pencarianData(){ // input nik
-    char cariNIK[100];
-    int ketemu = 0;
-
-    printf("\n=== PENCARIAN DATA WARGA BERDASARKAN NIK ===\n");
-    printf("Masukkan NIK yang ingin dicari: ");
-    scanf(" %s", cariNIK);
-
-    // loop array data[]
-    for (int i = 0; i < jlhWarga; i++) {
-        if (strcmp(data[i].nik, cariNIK) == 0) {
-            ketemu = 1;
-            printf("\nData warga ditemukan:\n");
-            printf("nama   : %s\n", data[i].nama);
-            printf("NIK    : %s\n", data[i].nik);
-            printf("RW     : %s\n", data[i].rw);
-            printf("RT     : %s\n", data[i].rt);
-            printf("alamat : %s\n", data[i].alamat);
-            printf("poin   : %d\n", data[i].poin);
-            break; // berhenti karena sudah ketemu
-        }
-    }
-
-    if (!ketemu) {
-        printf("\nData warga dengan NIK %s tidak ditemukan.\n", cariNIK);
-    }
-
-    pause(); // supaya berhenti sejenak sebelum kembali ke menu
-}
