@@ -24,6 +24,15 @@ typedef struct {
 
 #define FILE_NAME "data/tes.txt"
 
+#define FILE_TRANSAKSI "transaksi.txt"//Faiq coba tambahakan ini
+typedef struct {
+    char nik[20];
+    char nama[100];
+    char jenis[10];   
+    int poin;
+    char tanggal[15]; 
+} Riwayat;
+
 
 
 void tambahWarga();
@@ -32,5 +41,6 @@ void sortRWRTNama();
 void save();
 void load();
 void pause();
+void listSemuaWarga();
 
 #endif
