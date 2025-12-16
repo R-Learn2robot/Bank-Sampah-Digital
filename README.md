@@ -16,9 +16,9 @@ Anggota:
 2. Radit Wicaksana Putra
 3. Falda Falisha Aeni_2511508
 4. Muhammad Abdur Rouf_2510726
-6. Nadisya Azkia Syifana_2501186
-5. Dina Aulia_2502334
-6. Affan Lie Dhiyaa'ulrahman_2506463
+5. Nadisya Azkia Syifana_2501186
+6. Dina Aulia_2502334
+7. Affan Lie Dhiyaa'ulrahman_2506463
 
 
 🚀 Fitur Utama
