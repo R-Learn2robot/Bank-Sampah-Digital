@@ -470,7 +470,7 @@ void setorSampah() {
         return;
     }
 
-    // Format: NIK|Nama|Jenis|Poin|Tanggal|
+    // Format: NIK|Poin|Tanggal|
     fprintf(pF_transaksi, "%s|masuk|%d|%s|\n",
             data[index_warga].nik,
             total_poin,
