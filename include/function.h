@@ -59,13 +59,19 @@ void tampilkanListWarga();
 void pencarianDataNIK();
 void liatDataWarga();
 
+// fungsi setor sampah
+void setorSampah();
+
+// fungsi hapus data warga
+void hapusByNIK();
+void hapusSemua();
+void hapusDataWarga();
+
 // fungsi edit data
 void masukkanDataBaru(const int index);
 void editDataWarga();
 
-// fungsi transaksi
-void tambahTransaksi();   // kalau nanti kamu implementasikan
-void setorSampah();
-void tampilRiwayatByNIK(const char *filename, const char *nikCari);
+// fungsi riwayat transaksi
+void tampilRiwayatByNIK();
 
 #endif
