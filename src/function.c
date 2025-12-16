@@ -363,3 +363,134 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama 
     } while (berjalan);
     
 }
+
+void setorSampah() {
+    char input_nik[17];
+    int index_warga;
+    char jenis_sampah[10];
+    char kondisi_sampah[15];
+    float berat_sampah;
+    int hari, bulan, tahun;
+    char tanggal_str[15]; // Format YYYY-MM-DD
+    int poin_per_kg = 100; // Atau tentukan logika perhitungan poin lainnya
+    int total_poin;
+    int input_menu;
+
+    system(CLEAR);
+    printf("=== SETOR SAMPAH ===\n");
+
+    // 1. Input NIK
+    printf("Masukkan NIK Anda: ");
+    scanf(" %16s", input_nik); // Batasi panjang NIK sesuai struct
+
+    // 2. Cek NIK
+    index_warga = cariIndexNIK(input_nik);
+    if (index_warga == -1) {
+        printf("NIK tidak ditemukan. Proses setor sampah dibatalkan.\n");
+        pause();
+        return; // Keluar dari fungsi jika NIK tidak ditemukan
+    }
+
+    printf("Warga ditemukan: %s (NIK: %s)\n", data[index_warga].nama, data[index_warga].nik);
+
+    // Sub Menu 1: Jenis Sampah
+    printf("\nPilih Jenis Sampah:\n");
+    printf("1) Plastik\n");
+    printf("2) Logam\n");
+    printf("Pilihan (1-2): ");
+    scanf("%d", &input_menu);
+
+    switch (input_menu) {
+        case 1:
+            strcpy(jenis_sampah, "Plastik");
+            break;
+        case 2:
+            strcpy(jenis_sampah, "Logam");
+            break;
+        default:
+            printf("Pilihan jenis tidak valid. Proses setor sampah dibatalkan.\n");
+            pause();
+            return;
+    }
+
+    // Sub Menu 2: Kondisi Sampah
+    printf("\nPilih Kondisi Sampah:\n");
+    printf("1) Bersih\n");
+    printf("2) Tidak Bersih\n");
+    printf("Pilihan (1-2): ");
+    scanf("%d", &input_menu);
+
+    switch (input_menu) {
+        case 1:
+            strcpy(kondisi_sampah, "Bersih");
+            break;
+        case 2:
+            strcpy(kondisi_sampah, "Tidak_Bersih"); // Gunakan underscore jika dipisah di file
+            break;
+        default:
+            printf("Pilihan kondisi tidak valid. Proses setor sampah dibatalkan.\n");
+            pause();
+            return;
+    }
+
+    // 3. Input Berat Sampah
+    printf("\nMasukkan berat sampah (kg): ");
+    scanf("%f", &berat_sampah);
+    if (berat_sampah <= 0) {
+        printf("Berat tidak valid. Proses setor sampah dibatalkan.\n");
+        pause();
+        return;
+    }
+
+    // 4. Input Tanggal
+    printf("\nMasukkan tanggal setor:\n");
+    printf("Hari (1-31): ");
+    scanf("%d", &hari);
+    printf("Bulan (1-12): ");
+    scanf("%d", &bulan);
+    printf("Tahun (YYYY): ");
+    scanf("%d", &tahun);
+
+    // Validasi tanggal dasar (opsional, bisa ditambahkan validasi leap year dsb)
+    if (hari < 1 || hari > 31 || bulan < 1 || bulan > 12 || tahun < 1000 || tahun > 9999) {
+        printf("Tanggal tidak valid. Proses setor sampah dibatalkan.\n");
+        pause();
+        return;
+    }
+    sprintf(tanggal_str, "%04d-%02d-%02d", tahun, bulan, hari); // Format tanggal menjadi YYYY-MM-DD
+
+    // 5. Hitung Poin
+    total_poin = (int)(berat_sampah * poin_per_kg); // Pembulatan ke bawah
+
+    // 6. Simpan ke Riwayat Transaksi
+    FILE *pF_transaksi = fopen(FILE_TRANSAKSI, "a");
+    if (!pF_transaksi) {
+        printf("Gagal membuka file transaksi (%s) untuk ditambahkan!\n", FILE_TRANSAKSI);
+        pause();
+        return;
+    }
+
+    // Format: NIK|Poin|Tanggal|
+    fprintf(pF_transaksi, "%s|masuk|%d|%s|\n",
+            data[index_warga].nik,
+            total_poin,
+            tanggal_str);
+
+    fclose(pF_transaksi);
+
+    // 7. Update Poin Warga di Array dan Simpan
+    data[index_warga].poin += total_poin;
+    save(); // Pastikan perubahan poin disimpan ke dataWarga.txt
+
+    printf("\n--- Konfirmasi Setoran ---\n");
+    printf("Nama: %s\n", data[index_warga].nama);
+    printf("NIK: %s\n", data[index_warga].nik);
+    printf("Jenis & Kondisi: %s %s\n", jenis_sampah, kondisi_sampah);
+    printf("Berat: %.2f kg\n", berat_sampah);
+    printf("Total Poin Ditambahkan: %d\n", total_poin);
+    printf("Poin Terbaru Anda: %d\n", data[index_warga].poin);
+    printf("Tanggal: %s\n", tanggal_str);
+    printf("Setoran berhasil dicatat.\n");
+
+    pause();
+}
