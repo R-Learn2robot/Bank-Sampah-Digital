@@ -74,4 +74,8 @@ void editDataWarga();
 // fungsi riwayat transaksi
 void tampilRiwayatByNIK();
 
+// fungsi pencarian
+int cariIndexNIK(const char *nik);
+int cariIndexNamaDenganKeyword();   // NEW: cari index berdasarkan keyword nama (substring)
+
 #endif
