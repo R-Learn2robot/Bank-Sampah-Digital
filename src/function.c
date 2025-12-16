@@ -471,11 +471,8 @@ void setorSampah() {
     }
 
     // Format: NIK|Nama|Jenis|Poin|Tanggal|
-    fprintf(pF_transaksi, "%s|%s|%s %s|%d|%s|\n",
+    fprintf(pF_transaksi, "%s|masuk|%d|%s|\n",
             data[index_warga].nik,
-            data[index_warga].nama,
-            jenis_sampah, // Gabungkan jenis dan kondisi jika dianggap satu
-            kondisi_sampah,
             total_poin,
             tanggal_str);
 
