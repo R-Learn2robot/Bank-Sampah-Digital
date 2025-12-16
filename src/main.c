@@ -2,7 +2,6 @@
 
 int main() {
     int input;
-    char nikCari[20];
 
     load();
     sortRWRTNama();
@@ -15,9 +14,11 @@ int main() {
         printf("=========================================\n");
         printf("| 1) Tambah data warga                  |\n");
         printf("| 2) Melihat data warga                 |\n");
-        printf("| 3) Hapus data warga (WIP)             |\n");
-        printf("| 4) Edit data warga                    |\n");
-        printf("| 5) Riwayat transaksi                  |\n");
+        printf("| 3) Setor sampah                       |\n");
+        printf("| 4) Hapus data warga (WIP)             |\n");
+        printf("| 5) Edit data warga                    |\n");
+        printf("| 6) Tarik saldo                        |\n");
+        printf("| 7) Riwayat transaksi                  |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
         printf("Masukkan input anda: ");
@@ -37,18 +38,25 @@ int main() {
             break;
 
         case 3:
-            // belum ada fungsi hapus data warga
+            setorSampah();
             break;
 
         case 4:
+            // blm ad weh
+            break;
+
+        case 5:
             editDataWarga();
             pause();
             break;
 
-        case 5:
-            printf("Masukkan NIK yang ingin dilihat riwayatnya: ");
-            scanf("%19s", nikCari);
-            tampilRiwayatByNIK(FILE_TRANSAKSI, nikCari);  // pakai nama file dari define
+        case 6:
+            // blm ada fungsi
+            pause();
+            break;
+
+        case 7:
+            tampilRiwayatByNIK();
             pause();
             break;
 
