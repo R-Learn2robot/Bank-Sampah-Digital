@@ -70,3 +70,12 @@ void editDataWarga();
 void tambahTransaksi(); // <--- Tambahkan baris ini di sini
 
 #endif
+
+typedef struct {
+    char nik[20];
+    char jenis[10];     // "masuk" / "keluar"
+    int poin;
+    char tanggal[20];   // "dd/mm/yyyy"
+} RiwayatTransaksi;
+
+void tampilRiwayatByNIK(const char *filename, const char *nikCari);
