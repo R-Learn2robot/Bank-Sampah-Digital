@@ -33,15 +33,11 @@ extern Warga   *data;
 extern int      jlhWarga;
 extern int      kapasitasWarga;
 
-#define DATA_WARGA "data/dataWarga.txt"
-#define FILE_TRANSAKSI "data/transaksi.txt" //Faiq coba tambahakan ini
-
 // === KONSTANTA FILE ===
 #define DATA_WARGA      "data/dataWarga.txt"
 #define FILE_TRANSAKSI  "data/transaksi.txt"
 
 // === DEKLARASI FUNGSI ===
-
 // fungsi lain-lain
 void save();
 void load();

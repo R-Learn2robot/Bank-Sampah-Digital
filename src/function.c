@@ -6,13 +6,6 @@ Warga *data = NULL;
 int jlhWarga = 0;
 int kapasitasWarga = 0;
 
-// Karena RiwayatTransaksi tidak menyimpan nama, kita perlu baca ulang dari file untuk menampilkan
-// Alternatif: gunakan array RiwayatTransaksi *transaksi jika ingin simpan di memori juga
-// Jika tidak, variabel global untuk transaksi tidak diperlukan kecuali ingin caching
-// RiwayatTransaksi *transaksi = NULL; // Tidak digunakan jika riwayat selalu dibaca dari file
-// int jlhTransaksi = 0;
-// int kapasitasTransaksi = 0;
-
 //fungsi laiin-lain
 void pause() {
     printf("\ntekan enter untuk kembali...");
@@ -72,11 +65,6 @@ void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar 
     kapasitasWarga = 0;
     jlhWarga = 0;
 
-    // Jika menggunakan array transaksi di memori, tambahkan ini:
-    // free(transaksi);
-    // transaksi = NULL;
-    // kapasitasTransaksi = 0;
-    // jlhTransaksi = 0;
 }
 
 // fungsi pencarian
@@ -91,28 +79,31 @@ int cariIndexNIK(const char *nik) { // fungsi cari index dari array berdasarkan 
 
 // fungsi sorting (Bubble Sort)
 void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
-    if (jlhWarga <= 1) return; // Tidak perlu sorting jika kosong atau hanya satu
+    if (jlhWarga <= 1) {
+        return; // Tidak perlu sorting jika kosong atau hanya satu
+    }
+    Warga temp;
 
     for(int i = 0; i < jlhWarga - 1; i++){
         for(int j = 0; j < jlhWarga - i - 1; j++) {
             int cmpRW = strcmp(data[j].rw, data[j + 1].rw);
 
             if (cmpRW > 0) {
-                Warga temp = data[j];
+                temp = data[j];
                 data[j] = data[j + 1];
                 data[j + 1] = temp;
             } else if (cmpRW == 0) {
                 int cmpRT = strcmp(data[j].rt, data[j + 1].rt);
 
                 if(cmpRT > 0) {
-                    Warga temp = data[j];
+                    temp = data[j];
                     data[j] = data[j + 1];
                     data[j + 1] = temp;
                 } else if (cmpRT == 0) {
                     int cmpNama = strcmp(data[j].nama, data[j + 1].nama);
 
                     if (cmpNama > 0) {
-                        Warga temp = data[j];
+                        temp = data[j];
                         data[j] = data[j + 1];
                         data[j + 1] = temp;
                     }
@@ -153,11 +144,11 @@ void tambahWarga(){
     printf("alamat: ");
     scanf(" %100[^\n]", &data[jlhWarga].alamat);
 
-    data[jlhWarga].saldo = 0; // Inisialisasi saldo, bukan poin
+    data[jlhWarga].saldo = 0;
     jlhWarga++;
 
     sortRWRTNama();
-    save(); // Panggil save (yg menyimpan data warga)
+    save();
 
 }
 
@@ -171,7 +162,6 @@ void tampilkanListWarga() {
     system(CLEAR);
     printf("\n===LIST WARGA===\n");
 
-    // Loop langsung dari array data[] karena sudah diload ke memori
     for (int i = 0; i < jlhWarga; i++) {
         printf("%d) Nama   : %s\n", i+1, data[i].nama);
         printf("    NIK    : %s\n", data[i].nik);
@@ -263,7 +253,6 @@ void masukkanDataBaru(const int index) {
         printf("3) RW\n");
         printf("4) RT\n");
         printf("5) Alamat\n");
-        // printf("6) Saldo\n"); // Opsional: Jika ingin bisa edit saldo langsung
         printf("0) Selesai\n");
         printf("Data mana yang ingin diganti: ");
         scanf("%d", &input);
@@ -288,10 +277,6 @@ void masukkanDataBaru(const int index) {
             printf("Masukkan Alamat Baru: ");
             scanf(" %100[^\n]", &data[index].alamat);
             break;
-        // case 6: // Opsional
-        //     printf("Masukkan Saldo Baru: ");
-        //     scanf("%d", &data[index].saldo);
-        //     break;
         case 0:
             berjalan = 0;
             break;
@@ -304,7 +289,7 @@ void masukkanDataBaru(const int index) {
 
     } while (berjalan);
 
-    save(); // Panggil save (yg menyimpan data warga)
+    save(); 
 
     printf("Data warga berhasil diperbarui.\n");
 }
@@ -319,7 +304,7 @@ void editDataWarga() {
         system(CLEAR);
         printf("=== EDIT DATA WARGA ===\n");
         printf("1) Cari berdasarkan NIK\n");
-        // printf("2) Cari berdasarkan nama\n"); // Fungsi cari by nama belum dibuat secara lengkap
+        // printf("2) Cari berdasarkan nama\n");
         printf("0) Kembali\n");
         printf("Masukkan input anda: ");
         scanf("%d", &input);
@@ -349,7 +334,7 @@ void editDataWarga() {
 
 }
 
-// Fungsi Transaksi Umum (Opsional - bisa digunakan untuk setor/tarik manual)
+
 void tambahTransaksi() {
     RiwayatTransaksi transaksi_baru;
 
