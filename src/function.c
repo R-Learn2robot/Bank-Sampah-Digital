@@ -13,20 +13,19 @@ void pause() {
 
 void save() {
     FILE *pF = fopen(DATA_WARGA, "w");
-    if (!pF) {
+    if (!pF){
         printf("file tidak ditemukan!");
         return;
     }
-    for (int i = 0; i < jlhWarga; i++) {
-        // Ganti uang dengan saldo
-        fprintf(pF, "%s|%s|%s|%s|%s|%d|\n", data[i].nama, data[i].nik, data[i].rw,
-                data[i].rt, data[i].alamat, data[i].saldo); // <-- Diubah
+    for (int i = 0; i < jlhWarga; i++){
+        fprintf(pF, "%s|%s|%s|%s|%s|%d|\n", data[i].nama, data[i].nik, data[i].rw, 
+            data[i].rt, data[i].alamat, data[i].saldo);
 
     }
     fclose(pF);
 }
 
-void load() {
+void load() { // membaca file dan memasukkannya ke array of struck warga data[]
     FILE *pF = fopen(DATA_WARGA, "r");
     if (!pF) {
         printf("file tidak ditemukan!");
@@ -35,10 +34,9 @@ void load() {
     char line[255];
     jlhWarga = 0;
 
-    while (fgets(line, sizeof(line), pF)) {
-        // Ganti uang dengan saldo
-        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &data[jlhWarga].nama, &data[jlhWarga].nik, &data[jlhWarga].rw,
-               &data[jlhWarga].rt, &data[jlhWarga].alamat, &data[jlhWarga].saldo); // <-- Diubah
+    while (fgets(line, sizeof(line), pF)){
+        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &data[jlhWarga].nama, &data[jlhWarga].nik, &data[jlhWarga].rw, 
+            &data[jlhWarga].rt, &data[jlhWarga].alamat, &data[jlhWarga].saldo);
         jlhWarga++;
     }
 
@@ -122,7 +120,8 @@ void tambahWarga() {
     scanf(" %2s", &data[jlhWarga].rt);
     printf("alamat: ");
     scanf(" %100[^\n]", &data[jlhWarga].alamat);
-    data[jlhWarga].saldo = 0; // Inisialisasi saldo, bukan poin/uang
+
+    data[jlhWarga].saldo = 0;
     jlhWarga++;
 
     sortRWRTNama();
@@ -151,18 +150,17 @@ void tampilkanListWarga() {
     char rt[100];
     char rw[100];
     char alamat[100];
-    int saldo; // Gunakan variabel saldo
+    int saldo;
     int count = 1;
 
-    while (fgets(line, sizeof(line), pF)) {
-        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &nama, &nik, &rw, &rt, &alamat, &saldo); // <-- Diubah
-
+    while (fgets(line, sizeof(line), pF)){
+        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &nama, &nik, &rw, &rt, &alamat, &saldo);
         printf("%d) Nama   : %s\n", count, nama);
         printf("    NIK    : %s\n", nik);
         printf("    RW     : %s\n", rw);
         printf("    RT     : %s\n", rt);
         printf("    alamat : %s\n", alamat);
-        printf("    Saldo  : %d\n", saldo); // <-- Diubah: Tampilkan saldo
+        printf("    Saldo   : %d\n", saldo);
     }
     fclose(pF);
 }
@@ -180,12 +178,12 @@ void pencarianDataNIK() {
         printf("\nData warga dengan NIK %s tidak ditemukan.\n", cariNIK);
     } else {
         printf("\nData warga ditemukan:\n");
-        printf("nama   : %s\n", data[index].nama);
+        printf("Nama   : %s\n", data[index].nama);
         printf("NIK    : %s\n", data[index].nik);
         printf("RW     : %s\n", data[index].rw);
         printf("RT     : %s\n", data[index].rt);
-        printf("alamat : %s\n", data[index].alamat);
-        printf("saldo  : %d\n", data[index].saldo); // <-- Diubah: Tampilkan saldo
+        printf("Alamat : %s\n", data[index].alamat);
+        printf("Saldo   : %d\n", data[index].saldo);
     }
 }
 
@@ -325,49 +323,7 @@ void editDataWarga() {
     } while (berjalan);
 }
 
-// Fungsi Transaksi
-void tambahTransaksi() {
-    Riwayat transaksi_baru;
-
-    system(CLEAR);
-    printf("=== MENAMBAHKAN TRANSAKSI MANUAL ===\n"); // Nama fungsi bisa diganti jika spesifik untuk setor/tarik
-
-    printf("Masukkan NIK: ");
-    scanf(" %19s", transaksi_baru.nik);
-    getchar(); // Membersihkan newline
-
-    printf("Masukkan Nama: ");
-    scanf(" %99[^\n]", transaksi_baru.nama);
-
-    printf("Masukkan Jenis Transaksi (Setor/Tarik/Lainnya): ");
-    scanf(" %9s", transaksi_baru.jenis);
-
-    printf("Masukkan Jumlah Saldo: ");
-    scanf("%d", &transaksi_baru.saldo); // Gunakan saldo
-
-    printf("Masukkan Tanggal (YYYY-MM-DD): ");
-    scanf(" %14s", transaksi_baru.tanggal);
-
-    FILE *pF = fopen(FILE_TRANSAKSI, "a");
-    if (!pF) {
-        printf("Gagal membuka file transaksi (%s) untuk ditambahkan!\n", FILE_TRANSAKSI);
-        pause();
-        return;
-    }
-
-    fprintf(pF, "%s|%s|%s|%d|%s|\n",
-            transaksi_baru.nik,
-            transaksi_baru.nama,
-            transaksi_baru.jenis,
-            transaksi_baru.saldo, // Tulis saldo ke file
-            transaksi_baru.tanggal);
-
-    fclose(pF);
-    printf("Transaksi untuk %s (NIK: %s) sebesar Rp %d berhasil ditambahkan.\n", transaksi_baru.nama, transaksi_baru.nik, transaksi_baru.saldo);
-    pause();
-}
-
-// Fungsi Setor Sampah (Baru)
+// fitur setor sampah
 void setorSampah() {
     char input_nik[17];
     int index_warga;
@@ -375,8 +331,8 @@ void setorSampah() {
     float berat_sampah;
     int hari, bulan, tahun;
     char tanggal_str[15]; // Format YYYY-MM-DD
-    double harga_per_kg;
-    double total_saldo;
+    int saldo_per_kg = 100; // Atau tentukan logika perhitungan saldo lainnya
+    int total_saldo;
     int input_menu;
 
     system(CLEAR);
@@ -446,6 +402,7 @@ void setorSampah() {
     printf("Tahun (YYYY): ");
     scanf("%d", &tahun);
 
+    // Validasi tanggal dasar
     if (hari < 1 || hari > 31 || bulan < 1 || bulan > 12 || tahun < 1000 || tahun > 9999) {
         printf("Tanggal tidak valid. Proses setor sampah dibatalkan.\n");
         pause();
@@ -453,8 +410,8 @@ void setorSampah() {
     }
     sprintf(tanggal_str, "%04d-%02d-%02d", tahun, bulan, hari);
 
-    // 5. Hitung Saldo
-    total_saldo = berat_sampah * harga_per_kg;
+    // 5. Hitung saldo
+    total_saldo = (int)(berat_sampah * saldo_per_kg); // Pembulatan ke bawah
 
     // 6. Simpan ke Riwayat Transaksi
     FILE *pF_transaksi = fopen(FILE_TRANSAKSI, "a");
@@ -464,30 +421,63 @@ void setorSampah() {
         return;
     }
 
-    // Format catatan transaksi: NIK|Nama_Warga|Jenis_Sampah|Jumlah_Saldo_Ditambahkan|Tanggal|
-    fprintf(pF_transaksi, "%s|%s|%s|%.0f|%s|\n",
+    // Format: NIK|saldo|Tanggal|
+    fprintf(pF_transaksi, "%s|masuk|%.2f|%s|\n",
             data[index_warga].nik,
-            data[index_warga].nama,
-            jenis_sampah,
-            total_saldo, // Total saldo yang ditambahkan (dibulatkan)
+            total_saldo,
             tanggal_str);
 
     fclose(pF_transaksi);
 
-    // 7. Update Saldo Warga di Array dan Simpan
-    data[index_warga].saldo += (int) total_saldo; // Casting double ke int
-    save();
+    // 7. Update saldo Warga di Array dan Simpan
+    data[index_warga].saldo += total_saldo;
+    save(); // Pastikan perubahan saldo disimpan ke dataWarga.txt
 
     printf("\n--- Konfirmasi Setoran ---\n");
     printf("Nama: %s\n", data[index_warga].nama);
     printf("NIK: %s\n", data[index_warga].nik);
     printf("Jenis: %s\n", jenis_sampah); // Hanya jenis, tanpa kondisi
     printf("Berat: %.2f kg\n", berat_sampah);
-    printf("Harga: Rp %.0f/kg\n", harga_per_kg);
-    printf("Total Saldo Ditambahkan: Rp %.0f\n", total_saldo);
-    printf("Saldo Terbaru Anda: Rp %d\n", data[index_warga].saldo);
+    printf("Total saldo Ditambahkan: %d\n", total_saldo);
+    printf("saldo Terbaru Anda: %d\n", data[index_warga].saldo);
     printf("Tanggal: %s\n", tanggal_str);
     printf("Setoran berhasil dicatat.\n");
 
     pause();
+}
+
+// fitur riwayat transaksi
+void tampilRiwayatByNIK(const char *filename, const char *nikCari) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Gagal membuka file riwayat: %s\n", filename);
+        return;
+    }
+
+    RiwayatTransaksi r;
+    int found = 0;
+
+    printf("============================================================\n");
+    printf("| %-10s | %-8s | %-6s | %-12s |\n", "NIK", "Jenis", "saldo", "Tanggal");
+    printf("============================================================\n");
+
+    // baca file baris demi baris dengan format:
+    // nik|jenis|saldo|tanggal|
+    while (fscanf(fp, "%19[^|]|%9[^|]|%d|%19[^|]|%*c",
+                r.nik, r.jenis, &r.saldo, r.tanggal) == 4) {
+
+        if (strcmp(r.nik, nikCari) == 0) {
+            printf("| %-10s | %-8s | %-6d | %-12s |\n",
+                r.nik, r.jenis, r.saldo, r.tanggal);
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("| %-54s |\n", "Tidak ada riwayat untuk NIK tersebut.");
+    }
+
+    printf("============================================================\n");
+
+    fclose(fp);
 }

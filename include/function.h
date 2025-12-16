@@ -12,17 +12,15 @@ typedef struct {
     char rt[3];
     char rw[3];
     char alamat[101];
-    int saldo; // <-- Diubah dari poin menjadi saldo
-} Warga;
+    int saldo;
+}Warga;
 
-// Struktur Riwayat: Ganti poin menjadi saldo
 typedef struct {
     char nik[20];
-    char nama[100];
     char jenis[10];   
-    int saldo;        // <-- Diubah dari poin menjadi saldo
+    int saldo;
     char tanggal[15]; 
-} Riwayat;
+} RiwayatTransaksi;
 
 #ifdef _WIN32
     #define CLEAR "cls"
@@ -34,11 +32,6 @@ typedef struct {
 extern Warga *data; // array of struct          
 extern int jlhWarga; // ada berapa warga yg terdaftar         
 extern int kapasitasWarga; // kapasitas data
-
-// Variabel global untuk riwayat transaksi
-extern Riwayat *transaksi; // <-- Ditambahkan
-extern int jlhTransaksi;   // <-- Ditambahkan
-extern int kapasitasTransaksi; // <-- Ditambahkan
 
 #define DATA_WARGA "data/dataWarga.txt"
 #define FILE_TRANSAKSI "data/transaksi.txt" //Faiq coba tambahakan ini
@@ -75,3 +68,4 @@ void tambahTransaksi();
 void setorSampah(); // <-- Deklarasi fungsi setorSampah ditambahkan
 
 #endif
+
