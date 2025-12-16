@@ -1,1 +1,0 @@
-hai saya sedang mancoba

@@ -3,20 +3,26 @@
 
 
 int main() {
-    int pilih;
+    int input;
     load();
     sortRWRTNama();
     save();
     do
     {
         system(CLEAR);
-        printf("===MENU===\n");
-        printf("1) tambah data\n");
-        printf("2) list data\n");
-        printf("3) exit\n");
-        scanf("%d", &pilih);
+        printf("=========================================\n");
+        printf("|               MENU                    |\n");
+        printf("=========================================\n");
+        printf("| 1) Tambah data warga                  |\n");
+        printf("| 2) Melihat data warga                 |\n");
+        printf("| 3) Hapus data warga (WIP)             |\n");
+        printf("| 4) Edit data warga                    |\n");
+        printf("| 0) Keluar                             |\n");
+        printf("=========================================\n");
+        printf("Masukkan input anda: ");
+        scanf("%d", &input);
         getchar();
-        switch (pilih)
+        switch (input)
         {
         case 1:
             tambahWarga();
@@ -26,14 +32,23 @@ int main() {
         case 2:
             sortRWRTNama();
             save();
-            tampilData();
+            liatDataWarga();
             pause();
             break;
-        case 3:
+        case 3: //belum ada fungsinya
+            break;
+        case 4:
+            editDataWarga();
+            pause();
+            break;
+        case 0:
+            save();
+            hapusMemori();
+            printf("\nProgram selesai");
             return 0;
-        
         default:
             printf("invalid");
+            pause();
             break;
         }
     } while (1);
