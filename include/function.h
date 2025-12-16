@@ -5,6 +5,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Struktur Warga: Ganti poin menjadi saldo
 typedef struct {
     char nama[101];
     char nik[17];
@@ -13,6 +14,7 @@ typedef struct {
     char alamat[101];
     int saldo;
 }Warga;
+
 typedef struct {
     char nik[20];
     char jenis[10];   
@@ -32,7 +34,7 @@ extern int jlhWarga; // ada berapa warga yg terdaftar
 extern int kapasitasWarga; // kapasitas data
 
 #define DATA_WARGA "data/dataWarga.txt"
-#define FILE_TRANSAKSI "data/transaksi.txt"//Faiq coba tambahakan ini
+#define FILE_TRANSAKSI "data/transaksi.txt" //Faiq coba tambahakan ini
 
 
 // === DEKLARASI FUNGSI ===
@@ -63,8 +65,7 @@ void editDataWarga();
 
 // fungsi transaksi
 void tambahTransaksi();
-void setorSampah();
-
+void setorSampah(); // <-- Deklarasi fungsi setorSampah ditambahkan
 
 #endif
 
