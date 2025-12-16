@@ -66,4 +66,7 @@ void liatDataWarga();
 void masukkanDataBaru(const int index);
 void editDataWarga();
 
+// fungsi transaksi
+void tambahTransaksi(); // <--- Tambahkan baris ini di sini
+
 #endif

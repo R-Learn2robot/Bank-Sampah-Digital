@@ -29,6 +29,21 @@ void save() { //menyimpan data kedalam file.txt
     fclose(pF);
 }
 
+void save() { //menyimpan data kedalam file.txt
+    FILE *pF = fopen(FILE_TRANSAKSI, "w");
+    if (!pF){
+        printf("file tidak ditemukan!");
+        return;
+    }
+    for (int i = 0; i < jlhWarga; i++){
+        fprintf(pF, "%s|%s|%s|%s|%s|%d|\n", data[i].nama, data[i].nik, data[i].rw, 
+            data[i].rt, data[i].alamat, data[i].poin);
+
+    }
+    fclose(pF);
+}
+
+
 void load() { // membaca file dan memasukkannya ke array of struck warga data[]
     FILE *pF = fopen(DATA_WARGA, "r");
     if (!pF){
