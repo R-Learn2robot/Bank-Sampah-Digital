@@ -32,6 +32,10 @@ extern Warga *data; // array of struct
 extern int jlhWarga; // ada berapa warga yg terdaftar         
 extern int kapasitasWarga; // kapasitas data
 
+extern Riwayat *transaksi;
+extern int jlhTransaksi;
+extern int kapasitasTransaksi;
+
 #define DATA_WARGA "data/dataWarga.txt"
 #define FILE_TRANSAKSI "data/transaksi.txt"//Faiq coba tambahakan ini
 
