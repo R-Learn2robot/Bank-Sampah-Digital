@@ -1,66 +1,69 @@
-
 #include "../include/function.h"
 
-Warga *data = NULL;
-int jlhWarga = 0;
-int kapasitasWarga = 0;
+Warga   *data              = NULL;
+int      jlhWarga          = 0;
+int      kapasitasWarga    = 0;
 
-Riwayat *transaksi = NULL;
-int jlhTransaksi = 0;
-int kapasitasTransaksi = 0;
+Riwayat *transaksi         = NULL;   // kalau nanti dipakai sebagai array
+int      jlhTransaksi      = 0;
+int      kapasitasTransaksi = 0;
 
-//fungsi laiin-lain
-void pause() { //fungsi agar setelah setiap fungsi selesai dia berhenti sejenak baru melakukan clear screen
+// ================= FUNGSI LAIN-LAIN =================
+
+void pause() { // fungsi agar setelah setiap fungsi selesai dia berhenti sejenak baru melakukan clear screen
     printf("\ntekan enter untuk kembali...");
     getchar();
 }
 
-void save() { //menyimpan data kedalam file.txt
+void save() { // menyimpan data warga ke DATA_WARGA
     FILE *pF = fopen(DATA_WARGA, "w");
-    if (!pF){
+    if (!pF) {
         printf("file tidak ditemukan!");
         return;
     }
-    for (int i = 0; i < jlhWarga; i++){
-        fprintf(pF, "%s|%s|%s|%s|%s|%d|\n", data[i].nama, data[i].nik, data[i].rw, 
-            data[i].rt, data[i].alamat, data[i].poin);
 
+    for (int i = 0; i < jlhWarga; i++) {
+        fprintf(
+            pF,
+            "%s|%s|%s|%s|%s|%d|\n",
+            data[i].nama,
+            data[i].nik,
+            data[i].rw,
+            data[i].rt,
+            data[i].alamat,
+            data[i].saldo
+        );
     }
+
     fclose(pF);
 }
 
-void save() { //menyimpan data kedalam file.txt
-    FILE *pF = fopen(FILE_TRANSAKSI, "w");
-    if (!pF){
-        printf("file tidak ditemukan!");
-        return;
-    }
-    for (int i = 0; i < jlhWarga; i++){
-        fprintf(pF, "%s|%s|%s|%s|%s|%d|\n", data[i].nama, data[i].nik, data[i].rw, 
-            data[i].rt, data[i].alamat, data[i].poin);
-
-    }
-    fclose(pF);
-}
-
-
-void load() { // membaca file dan memasukkannya ke array of struck warga data[]
+void load() { // membaca file dan memasukkannya ke array of struct warga data[]
     FILE *pF = fopen(DATA_WARGA, "r");
-    if (!pF){
+    if (!pF) {
         printf("file tidak ditemukan!");
         return;
     }
+
     char line[255];
     jlhWarga  = 0;
 
-    while (fgets(line, sizeof(line), pF)){
-        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &data[jlhWarga].nama, &data[jlhWarga].nik, &data[jlhWarga].rw, 
-            &data[jlhWarga].rt, &data[jlhWarga].alamat, &data[jlhWarga].poin);
+    while (fgets(line, sizeof(line), pF)) {
+        cekKapasistas();
+        sscanf(
+            line,
+            "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|",
+            data[jlhWarga].nama,
+            data[jlhWarga].nik,
+            data[jlhWarga].rw,
+            data[jlhWarga].rt,
+            data[jlhWarga].alamat,
+            &data[jlhWarga].saldo
+        );
         jlhWarga++;
     }
 
     fclose(pF);
-
 }
 
 void cekKapasistas() { // fungsi mengecek apakah kapasitas array masih cukup
@@ -75,36 +78,134 @@ void cekKapasistas() { // fungsi mengecek apakah kapasitas array masih cukup
     }
 }
 
-void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar tidak memori leak
+void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar tidak memory leak
     free(data);
     data = NULL;
     kapasitasWarga = 0;
     jlhWarga = 0;
 }
 
-// fungsi pencarian
-int cariIndexNIK(const char *nik) { // fungsi cari index dari array berdasarkan NIK
-    int index = -1;
+// ================= FUNGSI PENCARIAN =================
 
+int cariIndexNIK(const char *nik) { // fungsi cari index array berdasarkan NIK
     for (int i = 0; i < jlhWarga; i++) {
-        if (strcmp(data[i].nik, nik) == 0){
+        if (strcmp(data[i].nik, nik) == 0) {
             return i;
-            break;
         }
     }
-    return -1;    
+    return -1;
 }
 
-// fungsi sorting (Bubble Sort)
+// cari index berdasarkan nama lengkap, jika ada lebih dari satu, user pilih mana
+int cariIndexNamaPilihan() {
+    char namaCari[101];
+    int indexKetemu[200];   // menampung index-index yang cocok
+    int jumlahKetemu = 0;
+    int pilihan;
+    int i;
+
+    system(CLEAR);
+    printf("=== PENCARIAN DATA WARGA BERDASARKAN NAMA ===\n");
+    printf("Masukkan nama lengkap yang ingin dicari: ");
+    getchar();                          // buang newline sisa scanf sebelumnya
+    fgets(namaCari, sizeof(namaCari), stdin);
+
+    // buang '\n' di akhir fgets jika ada
+    size_t len = strlen(namaCari);
+    if (len > 0 && namaCari[len - 1] == '\n') {
+        namaCari[len - 1] = '\0';
+    }
+
+    // cari semua yang namanya sama persis
+    for (i = 0; i < jlhWarga; i++) {
+        if (strcmp(data[i].nama, namaCari) == 0) {
+            indexKetemu[jumlahKetemu] = i;
+            jumlahKetemu++;
+        }
+    }
+
+    if (jumlahKetemu == 0) {
+        printf("\nTidak ada data dengan nama \"%s\".\n", namaCari);
+        pause();
+        return -1;
+    }
+
+    // kalau cuma satu, langsung pakai itu
+    if (jumlahKetemu == 1) {
+        int idx = indexKetemu[0];
+        printf("\nDitemukan 1 data:\n");
+        printf("Index  : %d\n", idx);
+        printf("Nama   : %s\n", data[idx].nama);
+        printf("NIK    : %s\n", data[idx].nik);
+        printf("RW     : %s\n", data[idx].rw);
+        printf("RT     : %s\n", data[idx].rt);
+        printf("Alamat : %s\n", data[idx].alamat);
+        printf("Saldo  : %d\n", data[idx].saldo);
+        pause();
+        return idx;
+    }
+
+    // kalau lebih dari satu, tampilkan tabel dan minta user pilih
+    printf("\nDitemukan %d data dengan nama \"%s\":\n", jumlahKetemu, namaCari);
+    printf("==========================================================================\n");
+    printf("| No | Index |      NIK       | Nama                           | Saldo |\n");
+    printf("==========================================================================\n");
+    for (i = 0; i < jumlahKetemu; i++) {
+        int idx = indexKetemu[i];
+        printf("| %-2d | %-5d | %-13s | %-30s | %-5d |\n",
+               i + 1,
+               idx,
+               data[idx].nik,
+               data[idx].nama,
+               data[idx].saldo);
+    }
+    printf("==========================================================================\n");
+
+    // minta pilihan
+    do {
+        printf("Pilih nomor data yang ingin diubah (1-%d), atau 0 untuk batal: ",
+               jumlahKetemu);
+
+        if (scanf("%d", &pilihan) != 1) {
+            while (getchar() != '\n');   // bersihkan input jika bukan angka
+            printf("Input tidak valid.\n");
+            continue;
+        }
+
+        if (pilihan == 0) {
+            printf("Dibatalkan.\n");
+            pause();
+            return -1;
+        }
+
+        if (pilihan < 1 || pilihan > jumlahKetemu) {
+            printf("Pilihan di luar jangkauan.\n");
+        } else {
+            int idxTerpilih = indexKetemu[pilihan - 1];
+            printf("Anda memilih data:\n");
+            printf("Nama   : %s\n", data[idxTerpilih].nama);
+            printf("NIK    : %s\n", data[idxTerpilih].nik);
+            printf("RW     : %s\n", data[idxTerpilih].rw);
+            printf("RT     : %s\n", data[idxTerpilih].rt);
+            printf("Alamat : %s\n", data[idxTerpilih].alamat);
+            printf("Saldo  : %d\n", data[idxTerpilih].saldo);
+            pause();
+            return idxTerpilih;
+        }
+    } while (1);
+}
+
+// ================= FUNGSI SORTING =================
+
 void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
     Warga temp;
 
-    if (jlhWarga < 0){
+    if (jlhWarga <= 1) {
         return;
     }
 
-    for(int i = 0; i < jlhWarga - 1; i++){
-        for(int j = 0; j < jlhWarga - i - 1; j++) {
+    for (int i = 0; i < jlhWarga - 1; i++) {
+        for (int j = 0; j < jlhWarga - i - 1; j++) {
             int cmpRW = strcmp(data[j].rw, data[j + 1].rw);
 
             if (cmpRW > 0) {
@@ -114,10 +215,10 @@ void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
             } else if (cmpRW == 0) {
                 int cmpRT = strcmp(data[j].rt, data[j + 1].rt);
 
-                if(cmpRT > 0) {
-                temp = data[j];
-                data[j] = data[j + 1];
-                data[j + 1] = temp;
+                if (cmpRT > 0) {
+                    temp = data[j];
+                    data[j] = data[j + 1];
+                    data[j + 1] = temp;
                 } else if (cmpRT == 0) {
                     int cmpNama = strcmp(data[j].nama, data[j + 1].nama);
 
@@ -132,18 +233,19 @@ void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
     }
 }
 
-//fungsi tambah data warga
-void tambahWarga(){ // fungsi tambah data warga ke file.txt
+// ================= FUNGSI TAMBAH WARGA =================
+
+void tambahWarga() { // fungsi tambah data warga ke file.txt
     system(CLEAR);
     cekKapasistas();
     char nikInput[17];
-    
+
     printf("=== MENAMBAHKAN DATA WARGA ===\n");
-    printf("nama: ");
-    scanf(" %100[^\n]", &data[jlhWarga].nama);
+    printf("Nama   : ");
+    scanf(" %100[^\n]", data[jlhWarga].nama);
 
     do {
-        printf("NIK: ");
+        printf("NIK    : ");
         scanf(" %16s", nikInput);
 
         if (cariIndexNIK(nikInput) != -1) {
@@ -154,22 +256,23 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
     } while (cariIndexNIK(nikInput) != -1);
     strcpy(data[jlhWarga].nik, nikInput);
 
-    printf("RW: ");
-    scanf(" %2s", &data[jlhWarga].rw);
+    printf("RW     : ");
+    scanf(" %2s", data[jlhWarga].rw);
 
-    printf("RT: ");
-    scanf(" %2s", &data[jlhWarga].rt);
+    printf("RT     : ");
+    scanf(" %2s", data[jlhWarga].rt);
 
-    printf("alamat: ");
-    scanf(" %100[^\n]", &data[jlhWarga].alamat);
+    printf("Alamat : ");
+    scanf(" %100[^\n]", data[jlhWarga].alamat);
 
-    data[jlhWarga].poin = 0;
+    data[jlhWarga].saldo = 0;
     jlhWarga++;
-    
+
     sortRWRTNama();
     save();
-    
 }
+
+// ================= FUNGSI TAMPIL DATA =================
 
 void tampilkanListWarga() { // fungsi tampilkan semua data dari file
     FILE *pF = fopen(DATA_WARGA, "r");
@@ -180,29 +283,31 @@ void tampilkanListWarga() { // fungsi tampilkan semua data dari file
 
     if (jlhWarga == 0) {
         printf("belum ada warga yang terdaftar");
+        fclose(pF);
         return;
     }
 
     system(CLEAR);
-    printf("\n===LIST WARGA===\n");
+    printf("\n=== LIST WARGA ===\n");
 
     char line[255];
-    char nama[100];
-    char nik[100];
-    char rt[100];
-    char rw[100];
-    char alamat[100];
-    int poin;
+    char nama[100], nik[100], rt[100], rw[100], alamat[100];
+    int saldo;
     int count = 1;
 
-    while (fgets(line, sizeof(line), pF)){
-        sscanf(line, "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|", &nama, &nik, &rw, &rt, &alamat, &poin);
+    while (fgets(line, sizeof(line), pF)) {
+        sscanf(
+            line,
+            "%[^|]|%[^|]|%[^|]|%[^|]|%[^|]|%d|",
+            nama, nik, rw, rt, alamat, &saldo
+        );
         printf("%d) Nama   : %s\n", count, nama);
         printf("    NIK    : %s\n", nik);
         printf("    RW     : %s\n", rw);
         printf("    RT     : %s\n", rt);
-        printf("    alamat : %s\n", alamat);
-        printf("    Poin   : %d\n", poin);
+        printf("    Alamat : %s\n", alamat);
+        printf("    Saldo  : %d\n", saldo);
+        count++;
     }
     fclose(pF);
 }
@@ -212,7 +317,7 @@ void pencarianDataNIK() { // fungsi cari data warga berdasarkan NIK
     system(CLEAR);
     printf("=== PENCARIAN DATA WARGA BERDASARKAN NIK ===\n");
     printf("Masukkan NIK yang ingin dicari: ");
-    scanf(" %16s", &cariNIK);
+    scanf(" %16s", cariNIK);
 
     int index = cariIndexNIK(cariNIK);
 
@@ -220,12 +325,12 @@ void pencarianDataNIK() { // fungsi cari data warga berdasarkan NIK
         printf("\nData warga dengan NIK %s tidak ditemukan.\n", cariNIK);
     } else {
         printf("\nData warga ditemukan:\n");
-        printf("nama   : %s\n", data[index].nama);
+        printf("Nama   : %s\n", data[index].nama);
         printf("NIK    : %s\n", data[index].nik);
         printf("RW     : %s\n", data[index].rw);
         printf("RT     : %s\n", data[index].rt);
-        printf("alamat : %s\n", data[index].alamat);
-        printf("poin   : %d\n", data[index].poin);
+        printf("Alamat : %s\n", data[index].alamat);
+        printf("Saldo  : %d\n", data[index].saldo);
     }
 }
 
@@ -263,15 +368,16 @@ void liatDataWarga() { // fungsi menu melihat semua data warga atau spesifik
     } while (berjalan);
 }
 
-// fungsi edit data
-void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di edit
+// ================= FUNGSI EDIT DATA =================
+
+void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah edit
     int input;
     int berjalan = 1;
     if (index == -1) {
         printf("Warga tidak ditemukan.\n");
         return;
     }
-    
+
     do {
         system(CLEAR);
         printf("\nData Warga:\n");
@@ -293,23 +399,23 @@ void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di
         switch (input) {
         case 1:
             printf("Masukkan Nama Baru: ");
-            scanf(" %100[^\n]", &data[index].nama);
+            scanf(" %100[^\n]", data[index].nama);
             break;
         case 2:
             printf("Masukkan NIK Baru: ");
-            scanf(" %16s", &data[index].nik);
+            scanf(" %16s", data[index].nik);
             break;
         case 3:
             printf("Masukkan RW Baru: ");
-            scanf(" %2s", &data[index].rw);
+            scanf(" %2s", data[index].rw);
             break;
         case 4:
             printf("Masukkan RT Baru: ");
-            scanf(" %2s", &data[index].rt);
+            scanf(" %2s", data[index].rt);
             break;
         case 5:
             printf("Masukkan Alamat Baru: ");
-            scanf(" %100[^\n]", &data[index].alamat);
+            scanf(" %100[^\n]", data[index].alamat);
             break;
         case 0:
             berjalan = 0;
@@ -320,22 +426,20 @@ void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di
             getchar();
             break;
         }
-        
-    } while (berjalan);
-    
-    save();
 
+    } while (berjalan);
+
+    save();
     printf("Data warga berhasil diperbarui.\n");
 }
 
-void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama (WIP, kurang pencarian banyak data dari 1 input)
+void editDataWarga() { // menu edit data warga berdasarkan NIK atau nama
     char cariNIK[17];
-    char cariNama[101];
     int index;
     int input;
     int berjalan = 1;
-    do
-    {
+
+    do {
         system(CLEAR);
         printf("=== EDIT DATA WARGA ===\n");
         printf("1) Cari berdasarkan NIK\n");
@@ -347,8 +451,12 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama 
         case 1:
             printf("\n=== PENCARIAN DATA WARGA BERDASARKAN NIK ===\n");
             printf("Masukkan NIK yang ingin dicari: ");
-            scanf(" %16s", &cariNIK);
+            scanf(" %16s", cariNIK);
             index = cariIndexNIK(cariNIK);
+            masukkanDataBaru(index);
+            break;
+        case 2:
+            index = cariIndexNamaPilihan();
             masukkanDataBaru(index);
             break;
         case 0:
@@ -361,12 +469,9 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama 
             break;
         }
     } while (berjalan);
-    
 }
 
-#include <stdio.h>
-#include <string.h>
-#include "../include/function.h"   // sesuaikan dengan path headermu
+// ================= RIWAYAT TRANSAKSI =================
 
 void tampilRiwayatByNIK(const char *filename, const char *nikCari) {
     FILE *fp = fopen(filename, "r");
@@ -375,27 +480,26 @@ void tampilRiwayatByNIK(const char *filename, const char *nikCari) {
         return;
     }
 
-    RiwayatTransaksi r;
+    Riwayat r;
     int found = 0;
 
     printf("============================================================\n");
-    printf("| %-10s | %-8s | %-6s | %-12s |\n", "NIK", "Jenis", "Poin", "Tanggal");
+    printf("| %-10s | %-8s | %-8s | %-12s |\n", "NIK", "Jenis", "Saldo", "Tanggal");
     printf("============================================================\n");
 
-    // baca file baris demi baris dengan format:
-    // nik|jenis|poin|tanggal|
-    while (fscanf(fp, "%19[^|]|%9[^|]|%d|%19[^|]|%*c",
-                  r.nik, r.jenis, &r.poin, r.tanggal) == 4) {
+    // format file: nik|jenis|saldo|tanggal|
+    while (fscanf(fp, "%19[^|]|%9[^|]|%d|%14[^|]|%*c",
+                  r.nik, r.jenis, &r.saldo, r.tanggal) == 4) {
 
         if (strcmp(r.nik, nikCari) == 0) {
-            printf("| %-10s | %-8s | %-6d | %-12s |\n",
-                   r.nik, r.jenis, r.poin, r.tanggal);
+            printf("| %-10s | %-8s | %-8d | %-12s |\n",
+                   r.nik, r.jenis, r.saldo, r.tanggal);
             found = 1;
         }
     }
 
     if (!found) {
-        printf("| %-54s |\n", "Tidak ada riwayat untuk NIK tersebut.");
+        printf("| %-56s |\n", "Tidak ada riwayat untuk NIK tersebut.");
     }
 
     printf("============================================================\n");
