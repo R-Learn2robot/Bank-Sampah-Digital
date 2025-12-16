@@ -5,6 +5,10 @@ Warga *data = NULL;
 int jlhWarga = 0;
 int kapasitasWarga = 0;
 
+Riwayat *transaksi = NULL;
+int jlhTransaksi = 0;
+int kapasitasTransaksi = 0;
+
 //fungsi laiin-lain
 void pause() { //fungsi agar setelah setiap fungsi selesai dia berhenti sejenak baru melakukan clear screen
     printf("\ntekan enter untuk kembali...");
@@ -114,20 +118,36 @@ void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
 }
 
 //fungsi tambah data warga
-void tambahWarga() { //fungsi tambah data warga ke file.txt
+void tambahWarga(){ // fungsi tambah data warga ke file.txt
     system(CLEAR);
     cekKapasistas();
+    char nikInput[17];
+    
     printf("=== MENAMBAHKAN DATA WARGA ===\n");
     printf("nama: ");
     scanf(" %100[^\n]", &data[jlhWarga].nama);
-    printf("NIK: ");
-    scanf(" %16s", &data[jlhWarga].nik);
+
+    do {
+        printf("NIK: ");
+        scanf(" %16s", nikInput);
+
+        if (cariIndexNIK(nikInput) != -1) {
+            printf("\nNIK %s sudah terdaftar!\n", nikInput);
+            printf("Silakan masukkan NIK lain.\n\n");
+        }
+
+    } while (cariIndexNIK(nikInput) != -1);
+    strcpy(data[jlhWarga].nik, nikInput);
+
     printf("RW: ");
     scanf(" %2s", &data[jlhWarga].rw);
+
     printf("RT: ");
     scanf(" %2s", &data[jlhWarga].rt);
+
     printf("alamat: ");
     scanf(" %100[^\n]", &data[jlhWarga].alamat);
+
     data[jlhWarga].poin = 0;
     jlhWarga++;
     
