@@ -503,17 +503,17 @@ void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di
     printf("Data warga berhasil diperbarui.\n");
 }
 
-void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama
+void editDataWarga() {
     char cariNIK[17];
     int index;
     int input;
     int berjalan = 1;
-    do
-    {
+
+    do {
         system(CLEAR);
         printf("=== EDIT DATA WARGA ===\n");
         printf("1) Cari berdasarkan NIK\n");
-        // printf("2) Cari berdasarkan nama\n");
+        printf("2) Cari berdasarkan nama\n");
         printf("0) Kembali\n");
         printf("Masukkan input anda: ");
         scanf("%d", &input);
@@ -521,14 +521,14 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama
         case 1:
             printf("\n=== PENCARIAN DATA WARGA BERDASARKAN NIK ===\n");
             printf("Masukkan NIK yang ingin dicari: ");
-            scanf(" %16s", &cariNIK);
+            scanf(" %16s", cariNIK);
             index = cariIndexNIK(cariNIK);
-            if (index != -1) {
-                masukkanDataBaru(index);
-            } else {
-                printf("Warga dengan NIK %s tidak ditemukan.\n", cariNIK);
-                pause();
-            }
+            masukkanDataBaru(index);
+            break;
+        case 2:
+            // Gwe gantinya disini dit
+            index = cariIndexNamaDenganKeyword();
+            masukkanDataBaru(index);
             break;
         case 0:
             berjalan = 0;
@@ -540,7 +540,6 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama
             break;
         }
     } while (berjalan);
-
 }
 
 // === FUNGSI RIWAYAT TRANSAKSI ===
@@ -588,4 +587,109 @@ void tampilRiwayatByNIK() {
     }
 
     fclose(pF);
+}
+
+// cari index berdasarkan keyword di nama (substring), user pilih jika lebih dari 1
+int cariIndexNamaDenganKeyword() {
+    char keyword[101];
+    int indexKetemu[200];   // menampung index-index yang cocok
+    int jumlahKetemu = 0;
+    int pilihan;
+    int i;
+
+    system(CLEAR);
+    printf("=== PENCARIAN DATA WARGA BERDASARKAN NAMA (KEYWORD) ===\n");
+    printf("Masukkan keyword nama (contoh: 'ahmad'): ");
+    getchar();                          // buang newline sisa scanf sebelumnya
+    fgets(keyword, sizeof(keyword), stdin);
+
+    // buang '\n' di akhir fgets jika ada
+    size_t len = strlen(keyword);
+    if (len > 0 && keyword[len - 1] == '\n') {
+        keyword[len - 1] = '\0';
+    }
+
+    if (strlen(keyword) == 0) {
+        printf("Keyword kosong.\n");
+        pause();
+        return -1;
+    }
+
+    // cari semua nama yang MENGANDUNG keyword (case-sensitive sederhana)
+    for (i = 0; i < jlhWarga; i++) {
+        if (strstr(data[i].nama, keyword) != NULL) {   // substring match
+            indexKetemu[jumlahKetemu] = i;
+            jumlahKetemu++;
+        }
+    }
+
+    if (jumlahKetemu == 0) {
+        printf("\nTidak ada data dengan nama yang mengandung \"%s\".\n", keyword);
+        pause();
+        return -1;
+    }
+
+    // kalau cuma satu, langsung pakai itu
+    if (jumlahKetemu == 1) {
+        int idx = indexKetemu[0];
+        printf("\nDitemukan 1 data:\n");
+        printf("Index  : %d\n", idx);
+        printf("Nama   : %s\n", data[idx].nama);
+        printf("NIK    : %s\n", data[idx].nik);
+        printf("RW     : %s\n", data[idx].rw);
+        printf("RT     : %s\n", data[idx].rt);
+        printf("Alamat : %s\n", data[idx].alamat);
+        printf("Saldo  : %d\n", data[idx].saldo);
+        pause();
+        return idx;
+    }
+
+    // kalau lebih dari satu, tampilkan tabel dan minta user pilih
+    printf("\nDitemukan %d data yang mengandung \"%s\":\n", jumlahKetemu, keyword);
+    printf("============================================================================\n");
+    printf("| No | Index |      NIK       | Nama                           | Saldo    |\n");
+    printf("============================================================================\n");
+    for (i = 0; i < jumlahKetemu; i++) {
+        int idx = indexKetemu[i];
+        printf("| %-2d | %-5d | %-13s | %-30s | %-8d |\n",
+               i + 1,
+               idx,
+               data[idx].nik,
+               data[idx].nama,
+               data[idx].saldo);
+    }
+    printf("============================================================================\n");
+
+    // minta pilihan
+    do {
+        printf("Pilih nomor data yang ingin diubah (1-%d), atau 0 untuk batal: ",
+               jumlahKetemu);
+
+        if (scanf("%d", &pilihan) != 1) {
+            while (getchar() != '\n');   // bersihkan input jika bukan angka
+            printf("Input tidak valid.\n");
+            continue;
+        }
+
+        if (pilihan == 0) {
+            printf("Dibatalkan.\n");
+            pause();
+            return -1;
+        }
+
+        if (pilihan < 1 || pilihan > jumlahKetemu) {
+            printf("Pilihan di luar jangkauan.\n");
+        } else {
+            int idxTerpilih = indexKetemu[pilihan - 1];
+            printf("Anda memilih data:\n");
+            printf("Nama   : %s\n", data[idxTerpilih].nama);
+            printf("NIK    : %s\n", data[idxTerpilih].nik);
+            printf("RW     : %s\n", data[idxTerpilih].rw);
+            printf("RT     : %s\n", data[idxTerpilih].rt);
+            printf("Alamat : %s\n", data[idxTerpilih].alamat);
+            printf("Saldo  : %d\n", data[idxTerpilih].saldo);
+            pause();
+            return idxTerpilih;
+        }
+    } while (1);
 }
