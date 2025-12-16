@@ -10,7 +10,7 @@ int main() {
     do
     {
         system(CLEAR);
-        printf("=== MENU ===\n");
+        printf("========= MENU =======\n");
         printf("1) Tambah data warga\n");
         printf("2) Melihat data warga\n");
         printf("3) Hapus data warga(WIP)\n");
