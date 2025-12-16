@@ -11,15 +11,14 @@ typedef struct {
     char rt[3];
     char rw[3];
     char alamat[101];
-    int poin;
+    int saldo;
 }Warga;
 typedef struct {
     char nik[20];
-    char nama[100];
     char jenis[10];   
-    int poin;
+    int saldo;
     char tanggal[15]; 
-} Riwayat;
+} RiwayatTransaksi;
 
 #ifdef _WIN32
     #define CLEAR "cls"
@@ -31,10 +30,6 @@ typedef struct {
 extern Warga *data; // array of struct          
 extern int jlhWarga; // ada berapa warga yg terdaftar         
 extern int kapasitasWarga; // kapasitas data
-
-extern Riwayat *transaksi;
-extern int jlhTransaksi;
-extern int kapasitasTransaksi;
 
 #define DATA_WARGA "data/dataWarga.txt"
 #define FILE_TRANSAKSI "data/transaksi.txt"//Faiq coba tambahakan ini
