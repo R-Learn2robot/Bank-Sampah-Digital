@@ -364,6 +364,42 @@ void editDataWarga() { // fungsi menu edit data warga berdasarkan NIK atau nama 
     
 }
 
+
+void tampilRiwayatByNIK(const char *filename, const char *nikCari) {
+    FILE *fp = fopen(filename, "r");
+    if (fp == NULL) {
+        printf("Gagal membuka file riwayat: %s\n", filename);
+        return;
+    }
+
+    RiwayatTransaksi r;
+    int found = 0;
+
+    printf("============================================================\n");
+    printf("| %-10s | %-8s | %-6s | %-12s |\n", "NIK", "Jenis", "Poin", "Tanggal");
+    printf("============================================================\n");
+
+    // baca file baris demi baris dengan format:
+    // nik|jenis|poin|tanggal|
+    while (fscanf(fp, "%19[^|]|%9[^|]|%d|%19[^|]|%*c",
+                  r.nik, r.jenis, &r.poin, r.tanggal) == 4) {
+
+        if (strcmp(r.nik, nikCari) == 0) {
+            printf("| %-10s | %-8s | %-6d | %-12s |\n",
+                   r.nik, r.jenis, r.poin, r.tanggal);
+            found = 1;
+        }
+    }
+
+    if (!found) {
+        printf("| %-54s |\n", "Tidak ada riwayat untuk NIK tersebut.");
+    }
+
+    printf("============================================================\n");
+
+    fclose(fp);
+}
+
 void setorSampah() {
     char input_nik[17];
     int index_warga;
