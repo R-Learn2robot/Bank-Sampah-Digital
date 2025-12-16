@@ -5,22 +5,22 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Struktur Warga: Ganti poin menjadi saldo
 typedef struct {
     char nama[101];
     char nik[17];
     char rt[3];
     char rw[3];
     char alamat[101];
-    int saldo;          // saldo warga
-} Warga;
+    int saldo;
+}Warga;
 
 typedef struct {
     char nik[20];
-    char nama[100];     // kalau tidak dipakai, boleh diabaikan
-    char jenis[10];     // "masuk" / "keluar"
-    int saldo;          // perubahan saldo pada transaksi ini
-    char tanggal[15];   // "dd/mm/yyyy" atau "yyyy-mm-dd"
-} Riwayat;
+    char jenis[10];   
+    int saldo;
+    char tanggal[15]; 
+} RiwayatTransaksi;
 
 #ifdef _WIN32
     #define CLEAR "cls"
@@ -33,9 +33,8 @@ extern Warga   *data;
 extern int      jlhWarga;
 extern int      kapasitasWarga;
 
-extern Riwayat *transaksi;
-extern int      jlhTransaksi;
-extern int      kapasitasTransaksi;
+#define DATA_WARGA "data/dataWarga.txt"
+#define FILE_TRANSAKSI "data/transaksi.txt" //Faiq coba tambahakan ini
 
 // === KONSTANTA FILE ===
 #define DATA_WARGA      "data/dataWarga.txt"
