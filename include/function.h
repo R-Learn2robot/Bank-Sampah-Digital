@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 // Struktur Warga: Ganti poin menjadi saldo
 typedef struct {
@@ -39,14 +40,16 @@ extern int      kapasitasWarga;
 
 // === DEKLARASI FUNGSI ===
 // fungsi lain-lain
+void pause();
 void save();
 void load();
-void pause();
 void cekKapasistas();
 void hapusMemori();
+void getTanggalHariIni(char tanggal[]);
 
 // fungsi pencarian
 int cariIndexNIK(const char *nik);
+int cariIndexNama();
 
 // fungsi sorting
 void sortRWRTNama();
@@ -71,11 +74,10 @@ void hapusDataWarga();
 void masukkanDataBaru(const int index);
 void editDataWarga();
 
+// fungsi tarik saldo
+void tarikSaldo();
+
 // fungsi riwayat transaksi
 void tampilRiwayatByNIK();
-
-// fungsi pencarian
-int cariIndexNIK(const char *nik);
-int cariIndexNamaDenganKeyword();   // NEW: cari index berdasarkan keyword nama (substring)
 
 #endif

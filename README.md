@@ -13,7 +13,7 @@ Kelompok 2
 Anggota:
 
 1. Ahmad Faiq Zidane
-2. Radit Wicaksana Putra
+2. Radit Wicaksana Putra_2501195
 3. Falda Falisha Aeni_2511508
 4. Muhammad Abdur Rouf_2510726
 5. Nadisya Azkia Syifana_2501186
