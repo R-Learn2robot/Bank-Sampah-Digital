@@ -15,15 +15,19 @@ int main() {
         printf("| 1) Tambah data warga                  |\n");
         printf("| 2) Melihat data warga                 |\n");
         printf("| 3) Setor sampah                       |\n");
-        printf("| 4) Hapus data warga (WIP)             |\n");
+        printf("| 4) Hapus data warga                   |\n");
         printf("| 5) Edit data warga                    |\n");
         printf("| 6) Tarik saldo                        |\n");
         printf("| 7) Riwayat transaksi                  |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
-        printf("Masukkan input anda: ");
-        scanf("%d", &input);
-
+        printf("Masukkan input anda (1-7): ");
+        if (scanf("%d", &input) != 1) {
+            printf("Input harus berupa angka!\n");
+            while (getchar() != '\n'); // bersihkan buffer
+            pause();
+            continue;
+        }
         switch (input) {
         case 1:
             tambahWarga();
@@ -42,7 +46,8 @@ int main() {
             break;
 
         case 4:
-            // blm ad weh
+            hapusDataWarga();
+            pause();
             break;
 
         case 5:
@@ -51,8 +56,7 @@ int main() {
             break;
 
         case 6:
-            // blm ada fungsi
-            pause();
+            tarikSaldo();
             break;
 
         case 7:
@@ -67,7 +71,7 @@ int main() {
             return 0;
 
         default:
-            printf("invalid");
+            printf("Input harus 1-7");
             pause();
             break;
         }
