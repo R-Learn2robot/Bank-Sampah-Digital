@@ -30,7 +30,7 @@ Anggota:
 | 4  | Edit data warga NIK/Nama                       |
 | 5  | Hapus data warga                               |
 | 6  | Penarikan saldo semua/spesifik                 |
-| 7  | Simpan dan muat data menggunakan file          |
+| 7  | Riwayat Transaksi                              |
 
 🛠️ Konsep Pemrograman yang Digunakan
 | Konsep              | Implementasi                                       |
