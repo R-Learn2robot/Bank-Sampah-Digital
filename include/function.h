@@ -40,13 +40,17 @@ extern int      kapasitasWarga;
 #define FILE_TRANSAKSI  "data/transaksi.txt"
 
 // === DEKLARASI FUNGSI ===
-// fungsi lain-lain
+// fungsi utilities
 void pause();
 void save();
 void load();
 void cekKapasistas();
 void hapusMemori();
 void getTanggalHariIni(char tanggal[]);
+
+// fungsi input
+int inputInt(char *perintah);
+void inputString(char *string, int size, const char *prompt);
 
 // fungsi pencarian
 int cariIndexNIK(const char *nik);

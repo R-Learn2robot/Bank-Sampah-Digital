@@ -5,7 +5,7 @@ Warga *data = NULL;
 int jlhWarga = 0;
 int kapasitasWarga = 0;
 
-// === FUNGSI LAIN-LAIN ===
+// === FUNGSI UTILITIES ===
 void pause() { //fungsi agar setelah setiap fungsi selesai dia berhenti sejenak baru melakukan clear screen
     printf("\ntekan enter untuk lanjut...");
     getchar();
@@ -72,7 +72,7 @@ void getTanggalHariIni(char tanggal[]) {
     sprintf(tanggal, "%02d/%02d/%04d", info->tm_mday, info->tm_mon + 1, info->tm_year + 1900);
 }
 
-// === FUNGSI INPUT(blm di implementasi) ===
+// === FUNGSI INPUT(blm di implementasi)x` ===
 int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya angka
     char string[100];
     int angka;
@@ -81,13 +81,11 @@ int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya an
     while (1) {
         printf("%s", perintah);
         if (fgets(string, sizeof(string), stdin) == NULL) {
-            continue;
+            return;
         }
 
-        // 2. Deteksi jika user hanya menekan Enter tanpa input
         if (string[0] == '\n') {
-            printf("\nInput tidak boleh kosong!\n");
-            continue;
+            return -1;
         }
 
         int hasil = sscanf(string, "%d %c", &angka, &sisa);
@@ -95,36 +93,64 @@ int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya an
         if (hasil == 1) {
             return angka;
         } else {
-            printf("\nInput hanya boleh angka.\n");
+            return -2;
         }
     }
 }
 
-void inputString(char *string, int size, const char *prompt) { //fungsi mengecek apakah yang dimasukkan hanya huruf
+void inputString(char *string, int size, const char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya huruf
     int valid;
 
     do {
         valid = 1;
-        printf("%s", prompt);
+        printf("%s", perintah);
 
         if (fgets(string, size, stdin) == NULL) {
             printf("Gagal membaca input.\n");
             continue;
         }
 
-        // Buang newline
         string[strcspn(string, "\n")] = '\0';
 
-        // Cek kosong
         if (strlen(string) == 0) {
             printf("Input tidak boleh kosong!\n");
             valid = 0;
             continue;
         }
 
-        // Cek huruf & spasi (unsigned char adalah tipe data char yg nilainya selalu positif)
         for (int i = 0; string[i] != '\0'; i++) {
-            if (!isalpha((unsigned char)string[i]) && string[i] != ' ') { //isalpha hanya bisa menerima angka positif
+            if (!isalpha((unsigned char)string[i]) && string[i] != ' ') {
+                printf("Input hanya boleh berisi huruf dan spasi!\n");
+                valid = 0;
+                break;
+            }
+        }
+
+    } while (!valid);
+}
+
+void inputNik(char *nik, int size, const char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya huruf
+    int valid;
+
+    do {
+        valid = 1;
+        printf("%s", perintah);
+
+        if (fgets(nik, size, stdin) == NULL) {
+            printf("Gagal membaca input.\n");
+            continue;
+        }
+
+        nik[strcspn(nik, "\n")] = '\0';
+
+        if (strlen(nik) == 0) {
+            printf("Input tidak boleh kosong!\n");
+            valid = 0;
+            continue;
+        }
+
+        for (int i = 0; nik[i] != '\0'; i++) {
+            if (!isdigit((unsigned char)nik[i])) {
                 printf("Input hanya boleh berisi huruf dan spasi!\n");
                 valid = 0;
                 break;
@@ -208,7 +234,7 @@ int cariIndexNama() { // cari index berdasarkan nama
 
     // minta pilihan
     do {
-        printf("Pilih nomor data yang ingin diubah (1-%d), atau 0 untuk batal: ",
+        printf("Pilih nomor data yang diinginkan (1-%d), atau 0 untuk batal: ",
             jumlahKetemu);
 
         if (scanf("%d", &pilihan) != 1) {
@@ -285,8 +311,7 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
     do {
         system(CLEAR);
         printf("=== MENAMBAHKAN DATA WARGA ===\n");
-        printf("NIK    : ");
-        scanf(" %16s", nikInput);
+        inputNik(nikInput, sizeof(nikInput), "Masukkan NIK: ");
         if (cariIndexNIK(nikInput) != -1) {
             printf("\nNIK %s sudah terdaftar!\n", nikInput);
             printf("Silakan masukkan NIK lain.\n\n");
