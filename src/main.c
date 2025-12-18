@@ -27,7 +27,7 @@ int main() {
             while (getchar() != '\n'); // bersihkan buffer
             pause();
             continue;
-        }
+        } 
         switch (input) {
         case 1:
             tambahWarga();
@@ -71,7 +71,8 @@ int main() {
             return 0;
 
         default:
-            printf("Input harus 1-7");
+            printf("\nInput harus 1-7\n");
+            getchar();
             pause();
             break;
         }
