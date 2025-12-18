@@ -19,6 +19,7 @@ int main() {
         printf("| 5) Edit data warga                    |\n");
         printf("| 6) Tarik saldo                        |\n");
         printf("| 7) Riwayat transaksi                  |\n");
+        printf("| 8) Laporan total sampah               |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
         input = inputInt("Masukkan input anda (1-8): ");
@@ -57,6 +58,11 @@ int main() {
             tampilRiwayatByNIK();
             pause();
             break;
+        
+        case 8:
+            menuLaporanTotalSampah();
+            pause();
+            break;
 
         case 0:
             save();
@@ -84,3 +90,5 @@ int main() {
 
     } while (1);
 }
+
+// Menghitung total saldo (rupiah) dari FILE_TRANSAKSI untuk 1 NIK

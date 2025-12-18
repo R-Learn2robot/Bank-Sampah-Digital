@@ -88,4 +88,18 @@ void tarikSaldo();
 // fungsi riwayat transaksi
 void tampilRiwayatByNIK();
 
+// fungsi tarik saldo
+void tarikSaldo();
+
+// fungsi riwayat transaksi
+void tampilRiwayatByNIK();
+
+// fungsi laporan total sampah
+void laporanTotalSampahPerOrang();
+void laporanTotalSampahPerRT();
+void laporanTotalSampahPerRW();
+void laporanTotalSampahPerKelurahan();
+void menuLaporanTotalSampah();
+
 #endif
+
