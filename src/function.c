@@ -952,3 +952,306 @@ void tampilRiwayatByNIK() {
     fclose(pF);
     getchar();
 }
+
+int hitungTotalSaldoByNIK(const char *nikTarget) {
+    FILE *fp = fopen(FILE_TRANSAKSI, "r");
+    if (!fp) return 0;
+
+    RiwayatTransaksi trx;
+    int total = 0;
+
+    while (fscanf(fp, "%[^;];%[^;];%d;%[^;\n]\n",
+            trx.nik, trx.jenis, &trx.saldo, trx.tanggal) == 4) {
+        if (strcmp(trx.nik, nikTarget) == 0) {
+            total += trx.saldo;
+        }
+    }
+
+    fclose(fp);
+    return total;
+}
+
+void laporanTotalSampahPerOrang() {
+    // Pastikan sudah ada data warga
+    if (jlhWarga == 0) {
+        printf("\n");
+        printf("=================================\n");
+        printf("|   BELUM ADA DATA WARGA        |\n");
+        printf("=================================\n");
+        return;
+    }
+
+    // Cek apakah ada transaksi
+    FILE *fp = fopen(FILE_TRANSAKSI, "r");
+    if (!fp) {
+        printf("\n");
+        printf("=================================\n");
+        printf("| BELUM ADA DATA TRANSAKSI      |\n");
+        printf("=================================\n");
+        return;
+    }
+    fclose(fp);
+
+    printf("\n");
+    printf("==========================================================================\n");
+    printf("|                   TOTAL SALDO SAMPAH PER ORANG                          |\n");
+    printf("==========================================================================\n");
+    printf("| %-3s | %-20s | %-16s | %-5s | %-5s | %-12s |\n",
+           "No", "Nama", "NIK", "RW", "RT", "Total (Rp)");
+    printf("--------------------------------------------------------------------------\n");
+
+    int nomor = 1;
+    for (int i = 0; i < jlhWarga; i++) {
+        int totalSaldo = hitungTotalSaldoByNIK(data[i].nik);
+        if (totalSaldo > 0) {
+            printf("| %-3d | %-20s | %-16s | %-5s | %-5s | %-12d |\n",
+                nomor,
+                data[i].nama,
+                data[i].nik,
+                data[i].rw,
+                data[i].rt,
+                totalSaldo);
+            nomor++;
+        }
+    }
+
+    printf("==========================================================================\n");
+}
+
+void laporanTotalSampahPerRT() {
+    if (jlhWarga == 0) {
+        printf("\n");
+        printf("=================================\n");
+        printf("|   BELUM ADA DATA WARGA        |\n");
+        printf("=================================\n");
+        return;
+    }
+
+    FILE *fp = fopen(FILE_TRANSAKSI, "r");
+    if (!fp) {
+        printf("\n");
+        printf("=================================\n");
+        printf("| BELUM ADA DATA TRANSAKSI      |\n");
+        printf("=================================\n");
+        return;
+    }
+    fclose(fp);
+
+    char daftarRW[200][3];
+    char daftarRT[200][3];
+    int  jlhRTUnik = 0;
+
+    // Kumpulkan kombinasi RW/RT unik dari data warga
+    for (int i = 0; i < jlhWarga; i++) {
+        int sudahAda = 0;
+        for (int k = 0; k < jlhRTUnik; k++) {
+            if (strcmp(daftarRW[k], data[i].rw) == 0 &&
+                strcmp(daftarRT[k], data[i].rt) == 0) {
+                sudahAda = 1;
+                break;
+            }
+        }
+        if (!sudahAda) {
+            strcpy(daftarRW[jlhRTUnik], data[i].rw);
+            strcpy(daftarRT[jlhRTUnik], data[i].rt);
+            jlhRTUnik++;
+        }
+    }
+
+    printf("\n");
+    printf("=========================================================\n");
+    printf("|              TOTAL SALDO SAMPAH PER RT                |\n");
+    printf("=========================================================\n");
+    printf("| %-3s | %-5s | %-5s | %-12s |\n",
+           "No", "RW", "RT", "Total (Rp)");
+    printf("---------------------------------------------------------\n");
+
+    int nomor = 1;
+    for (int x = 0; x < jlhRTUnik; x++) {
+        long totalRT = 0;
+
+        // Untuk setiap warga di RW/RT ini, jumlahkan semua transaksinya
+        for (int i = 0; i < jlhWarga; i++) {
+            if (strcmp(data[i].rw, daftarRW[x]) == 0 &&
+                strcmp(data[i].rt, daftarRT[x]) == 0) {
+
+                totalRT += hitungTotalSaldoByNIK(data[i].nik);
+            }
+        }
+
+        if (totalRT > 0) {
+            printf("| %-3d | %-5s | %-5s | %-12ld |\n",
+                   nomor,
+                   daftarRW[x],
+                   daftarRT[x],
+                   totalRT);
+            nomor++;
+        }
+    }
+
+    printf("=========================================================\n");
+}
+
+void laporanTotalSampahPerRW() {
+    if (jlhWarga == 0) {
+        printf("\n");
+        printf("=================================\n");
+        printf("|   BELUM ADA DATA WARGA        |\n");
+        printf("=================================\n");
+        return;
+    }
+
+    FILE *fp = fopen(FILE_TRANSAKSI, "r");
+    if (!fp) {
+        printf("\n");
+        printf("=================================\n");
+        printf("| BELUM ADA DATA TRANSAKSI      |\n");
+        printf("=================================\n");
+        return;
+    }
+    fclose(fp);
+
+    char daftarRW[200][3];
+    int  jlhRWUnik = 0;
+
+    // Kumpulkan RW unik
+    for (int i = 0; i < jlhWarga; i++) {
+        int sudahAda = 0;
+        for (int k = 0; k < jlhRWUnik; k++) {
+            if (strcmp(daftarRW[k], data[i].rw) == 0) {
+                sudahAda = 1;
+                break;
+            }
+        }
+        if (!sudahAda) {
+            strcpy(daftarRW[jlhRWUnik], data[i].rw);
+            jlhRWUnik++;
+        }
+    }
+
+    printf("\n");
+    printf("===============================================\n");
+    printf("|           TOTAL SALDO SAMPAH PER RW         |\n");
+    printf("===============================================\n");
+    printf("| %-3s | %-5s | %-12s |\n",
+           "No", "RW", "Total (Rp)");
+    printf("-----------------------------------------------\n");
+
+    int nomor = 1;
+    for (int x = 0; x < jlhRWUnik; x++) {
+        long totalRW = 0;
+
+        for (int i = 0; i < jlhWarga; i++) {
+            if (strcmp(data[i].rw, daftarRW[x]) == 0) {
+                totalRW += hitungTotalSaldoByNIK(data[i].nik);
+            }
+        }
+
+        if (totalRW > 0) {
+            printf("| %-3d | %-5s | %-12ld |\n",
+                   nomor,
+                   daftarRW[x],
+                   totalRW);
+            nomor++;
+        }
+    }
+
+    printf("===============================================\n");
+}
+
+void laporanTotalSampahPerKelurahan() {
+    if (jlhWarga == 0) {
+        printf("\n");
+        printf("=================================\n");
+        printf("|   BELUM ADA DATA WARGA        |\n");
+        printf("=================================\n");
+        return;
+    }
+
+    FILE *fp = fopen(FILE_TRANSAKSI, "r");
+    if (!fp) {
+        printf("\n");
+        printf("=================================\n");
+        printf("| BELUM ADA DATA TRANSAKSI      |\n");
+        printf("=================================\n");
+        return;
+    }
+    fclose(fp);
+
+    char daftarKel[200][50];
+    int  jlhKelUnik = 0;
+
+    // Kumpulkan kelurahan unik dari data warga
+    for (int i = 0; i < jlhWarga; i++) {
+        int sudahAda = 0;
+        for (int k = 0; k < jlhKelUnik; k++) {
+            if (strcmp(daftarKel[k], data[i].kelurahan) == 0) {
+                sudahAda = 1;
+                break;
+            }
+        }
+        if (!sudahAda) {
+            strcpy(daftarKel[jlhKelUnik], data[i].kelurahan);
+            jlhKelUnik++;
+        }
+    }
+
+    printf("\n");
+    printf("=============================================================\n");
+    printf("|         TOTAL SALDO SAMPAH PER KELURAHAN                  |\n");
+    printf("=============================================================\n");
+    printf("| %-3s | %-25s | %-12s |\n",
+           "No", "Kelurahan", "Total (Rp)");
+    printf("-------------------------------------------------------------\n");
+
+    int nomor = 1;
+    for (int x = 0; x < jlhKelUnik; x++) {
+        long totalKel = 0;
+
+        for (int i = 0; i < jlhWarga; i++) {
+            if (strcmp(data[i].kelurahan, daftarKel[x]) == 0) {
+                totalKel += hitungTotalSaldoByNIK(data[i].nik);
+            }
+        }
+
+        if (totalKel > 0) {
+            printf("| %-3d | %-25s | %-12ld |\n",
+                   nomor,
+                   daftarKel[x],
+                   totalKel);
+            nomor++;
+        }
+    }
+
+    printf("=============================================================\n");
+}
+
+void menuLaporanTotalSampah() {
+    int pilih;
+    do {
+        printf("\n");
+        printf("=================================\n");
+        printf("|      LAPORAN TOTAL SAMPAH     |\n");
+        printf("=================================\n");
+        printf("| 1) Per Orang (NIK)            |\n");
+        printf("| 2) Per RT                     |\n");
+        printf("| 3) Per RW                     |\n");
+        printf("| 4) Per Kelurahan              |\n");
+        printf("| 0) Kembali                    |\n");
+        printf("=================================\n");
+        printf("Masukkan pilihan anda: ");
+        pilih = inputInt("");
+
+        switch (pilih) {
+            case 1: laporanTotalSampahPerOrang();      break;
+            case 2: laporanTotalSampahPerRT();         break;
+            case 3: laporanTotalSampahPerRW();         break;
+            case 4: laporanTotalSampahPerKelurahan();  break;
+            case 0: break;
+            default:
+                printf("Pilihan tidak valid.\n");
+        }
+
+    } while (pilih != 0);
+}
+
