@@ -51,6 +51,7 @@ void getTanggalHariIni(char tanggal[]);
 // fungsi input
 int inputInt(char *perintah);
 void inputString(char *string, int size, const char *prompt);
+void inputNik(char *nik, int size, const char *perintah);
 
 // fungsi pencarian
 int cariIndexNIK(const char *nik);

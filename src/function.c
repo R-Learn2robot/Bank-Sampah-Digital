@@ -81,7 +81,7 @@ int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya an
     while (1) {
         printf("%s", perintah);
         if (fgets(string, sizeof(string), stdin) == NULL) {
-            return;
+            return -3;
         }
 
         if (string[0] == '\n') {
