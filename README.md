@@ -12,7 +12,7 @@ Kelompok 2
 
 Anggota:
 
-1. Ahmad Faiq Zidane
+1. Ahmad Faiq Zidane_2502542
 2. Radit Wicaksana Putra_2501195
 3. Falda Falisha Aeni_2511508
 4. Muhammad Abdur Rouf_2510726
@@ -24,7 +24,7 @@ Anggota:
 🚀 Fitur Utama
 | No | Fitur                                          |
 | -- | ---------------------------------------------- |
-| 1  | Tambah dan kelola data warga                   |
+| 1  | Tambah data warga                              |
 | 2  | Input setoran sampah berdasarkan jenis & berat |
 | 3  | Perhitungan saldo otomatis                     |
 | 4  | Pencarian data warga (Searching)               |
