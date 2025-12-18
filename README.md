@@ -28,7 +28,7 @@ Anggota:
 | 2  | Cari dan list semua data warga                 |
 | 3  | Setor Sampah                                   |
 | 4  | Edit data warga NIK/Nama                       |
-| 5  | Pengurutan saldo (Bubble Sort)                 |
+| 5  | Hapus data warga                               |
 | 6  | Riwayat transaksi                              |
 | 7  | Simpan dan muat data menggunakan file          |
 
