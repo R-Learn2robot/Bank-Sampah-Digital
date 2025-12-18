@@ -22,7 +22,7 @@ int main() {
         printf("| 8) Laporan total sampah (kg)          |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
-        input = inputInt("Masukkan input anda (1-7): ");
+        input = inputInt("Masukkan input anda (1-8): ");
         switch (input) {
         case 1:
             tambahWarga();
