@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
+#include <ctype.h>
 
 // Struktur Warga: Ganti poin menjadi saldo
 typedef struct {
@@ -39,12 +41,21 @@ extern int      kapasitasWarga;
 #define SALDO_PER_KG    100
 
 // === DEKLARASI FUNGSI ===
-// fungsi lain-lain
+// fungsi utilities
+void pause();
 void save();
 void load();
 void pause();
 void cekKapasistas();
 void hapusMemori();
+void getTanggalHariIni(char tanggal[]);
+void toLowerCase(char *str);
+void formatNama(char *nama);
+
+// fungsi input
+int inputInt(char *perintah);
+void inputString(char *string, int size, const char *prompt);
+void inputNik(char *nik, int size, const char *perintah);
 
 // fungsi pencarian
 int cariIndexNIK(const char *nik);

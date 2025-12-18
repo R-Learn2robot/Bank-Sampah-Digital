@@ -22,13 +22,7 @@ int main() {
         printf("| 8) Laporan total sampah (kg)          |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
-        printf("Masukkan input anda (1-8): ");
-        if (scanf("%d", &input) != 1) {
-            printf("Input harus berupa angka!\n");
-            while (getchar() != '\n'); // bersihkan buffer
-            pause();
-            continue;
-        }
+        input = inputInt("Masukkan input anda (1-7): ");
         switch (input) {
         case 1:
             tambahWarga();
@@ -75,8 +69,20 @@ int main() {
             printf("\nProgram selesai");
             return 0;
 
+        // case untuk error
+        case -1:
+            printf("\nInput tidak boleh kosong!\n");
+            pause();
+            break;
+        
+        case -2:
+            printf("\nInput hanya boleh angka!\n");
+            pause();
+            break;
+        
         default:
-            printf("Input harus 1-7");
+            printf("\nInput harus 1-7\n");
+            getchar();
             pause();
             break;
         }

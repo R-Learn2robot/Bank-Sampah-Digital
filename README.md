@@ -12,8 +12,8 @@ Kelompok 2
 
 Anggota:
 
-1. Ahmad Faiq Zidane
-2. Radit Wicaksana Putra_2501195
+1. Ahmad Faiq Zidane_2502542
+2. Raditya Wicaksana Putra_2501195
 3. Falda Falisha Aeni_2511508
 4. Muhammad Abdur Rouf_2510726
 5. Nadisya Azkia Syifana_2501186
@@ -24,13 +24,13 @@ Anggota:
 🚀 Fitur Utama
 | No | Fitur                                          |
 | -- | ---------------------------------------------- |
-| 1  | Tambah dan kelola data warga                   |
-| 2  | Input setoran sampah berdasarkan jenis & berat |
-| 3  | Perhitungan saldo otomatis                     |
-| 4  | Pencarian data warga (Searching)               |
-| 5  | Pengurutan saldo (Bubble Sort)                 |
-| 6  | Riwayat transaksi                              |
-| 7  | Simpan dan muat data menggunakan file          |
+| 1  | Tambah data warga                              |
+| 2  | Cari dan list semua data warga                 |
+| 3  | Setor Sampah                                   |
+| 4  | Edit data warga NIK/Nama                       |
+| 5  | Hapus data warga                               |
+| 6  | Penarikan saldo semua/spesifik                 |
+| 7  | Riwayat Transaksi                              |
 
 🛠️ Konsep Pemrograman yang Digunakan
 | Konsep              | Implementasi                                       |
