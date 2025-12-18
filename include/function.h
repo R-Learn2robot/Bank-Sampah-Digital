@@ -15,6 +15,7 @@ typedef struct {
     char rw[3];
     char alamat[101];
     int saldo;
+    float totalSampahKg;
 }Warga;
 
 typedef struct {
@@ -53,7 +54,8 @@ void formatNama(char *nama);
 // fungsi input
 int inputInt(char *perintah);
 void inputString(char *string, int size, const char *prompt);
-void inputNik(char *nik, int size, const char *perintah);
+void inputAngkaString(char *nik, int size, const char *perintah);
+void inputAlamat(char *string, int size, const char *perintah);
 
 // fungsi pencarian
 int cariIndexNIK(const char *nik);
@@ -95,11 +97,11 @@ void tarikSaldo();
 void tampilRiwayatByNIK();
 
 // fungsi laporan total sampah
-void laporanTotalSampahPerOrang();
-void laporanTotalSampahPerRT();
-void laporanTotalSampahPerRW();
-void laporanTotalSampahPerKelurahan();
-void menuLaporanTotalSampah();
+void laporanPerWarga();
+void laporanPerRT();
+void laporanPerRW();
+void laporanSeluruhKelurahan();
+void menuTotalSampah();
 
 #endif
 

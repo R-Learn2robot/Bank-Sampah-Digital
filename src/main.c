@@ -69,26 +69,12 @@ int main() {
             hapusMemori();
             printf("\nProgram selesai");
             return 0;
-
-        // case untuk error
-        case -1:
-            printf("\nInput tidak boleh kosong!\n");
-            pause();
-            break;
-        
-        case -2:
-            printf("\nInput hanya boleh angka!\n");
-            pause();
-            break;
         
         default:
             printf("\nInput harus 1-7\n");
-            getchar();
             pause();
             break;
         }
 
     } while (1);
 }
-
-// Menghitung total saldo (rupiah) dari FILE_TRANSAKSI untuk 1 NIK
