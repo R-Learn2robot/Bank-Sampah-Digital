@@ -29,7 +29,7 @@ Anggota:
 | 3  | Setor Sampah                                   |
 | 4  | Edit data warga NIK/Nama                       |
 | 5  | Hapus data warga                               |
-| 6  | Riwayat transaksi                              |
+| 6  | Penarikan saldo semua/spesifik                 |
 | 7  | Simpan dan muat data menggunakan file          |
 
 🛠️ Konsep Pemrograman yang Digunakan
