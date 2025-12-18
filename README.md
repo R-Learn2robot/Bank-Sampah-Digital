@@ -24,7 +24,7 @@ Anggota:
 🚀 Fitur Utama
 | No | Fitur                                          |
 | -- | ---------------------------------------------- |
-| 1  | Tambah data warga                              |
+| 1  | Tambah data warga                             |
 | 2  | Input setoran sampah berdasarkan jenis & berat |
 | 3  | Perhitungan saldo otomatis                     |
 | 4  | Pencarian data warga (Searching)               |
