@@ -47,6 +47,8 @@ void load();
 void cekKapasistas();
 void hapusMemori();
 void getTanggalHariIni(char tanggal[]);
+void toLowerCase(char *str);
+void formatNama(char *nama);
 
 // fungsi input
 int inputInt(char *perintah);

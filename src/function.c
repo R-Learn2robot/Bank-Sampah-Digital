@@ -65,11 +65,34 @@ void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar 
 
 }
 
-void getTanggalHariIni(char tanggal[]) {
+void getTanggalHariIni(char tanggal[]) { // fungsi mengambil tanggal hari ini
     time_t sekarang = time(NULL);
     struct tm *info = localtime(&sekarang);
 
     sprintf(tanggal, "%02d/%02d/%04d", info->tm_mday, info->tm_mon + 1, info->tm_year + 1900);
+}
+
+void toLowerCase(char *str) { // agar string jadi lowercase
+    for (int i = 0; str[i] != '\0'; i++) {
+        str[i] = tolower((unsigned char)str[i]);
+    }
+}
+
+void formatNama(char *nama) { // agar string ter format
+    int setelahSpasi = 1; 
+
+    for (int i = 0; nama[i] != '\0'; i++) {
+        if (isspace((unsigned char)nama[i])) {
+            setelahSpasi = 1;
+        } else {
+            if (setelahSpasi) {
+                nama[i] = toupper((unsigned char)nama[i]);
+                setelahSpasi = 0;
+            } else {
+                nama[i] = tolower((unsigned char)nama[i]);
+            }
+        }
+    }
 }
 
 // === FUNGSI INPUT(blm di implementasi)x` ===
