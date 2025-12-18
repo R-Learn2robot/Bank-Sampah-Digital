@@ -19,9 +19,10 @@ int main() {
         printf("| 5) Edit data warga                    |\n");
         printf("| 6) Tarik saldo                        |\n");
         printf("| 7) Riwayat transaksi                  |\n");
+        printf("| 8) Laporan total sampah (kg)          |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
-        printf("Masukkan input anda (1-7): ");
+        printf("Masukkan input anda (1-8): ");
         if (scanf("%d", &input) != 1) {
             printf("Input harus berupa angka!\n");
             while (getchar() != '\n'); // bersihkan buffer
@@ -62,6 +63,10 @@ int main() {
         case 7:
             tampilRiwayatByNIK();
             pause();
+            break;
+
+        case 8:
+            menuLaporanSampah();
             break;
 
         case 0:
