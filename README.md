@@ -26,7 +26,7 @@ Anggota:
 | -- | ---------------------------------------------- |
 | 1  | Tambah data warga                              |
 | 2  | Cari dan list semua data warga                 |
-| 3  | Perhitungan saldo otomatis                     |
+| 3  | Setor Sampah                                   |
 | 4  | Pencarian data warga (Searching)               |
 | 5  | Pengurutan saldo (Bubble Sort)                 |
 | 6  | Riwayat transaksi                              |
