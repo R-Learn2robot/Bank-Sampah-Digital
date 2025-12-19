@@ -971,27 +971,63 @@ void tarikSaldo() {
 }
 
 // === FUNGSI RIWAYAT TRANSAKSI ===
-float hitungTotalBeratByNIK(const char *nikTarget) {
-    FILE *fp = fopen(FILE_TRANSAKSI, "r");
-    if (!fp) return 0.0f;
-
-    RiwayatTransaksi trx;
-    float totalBerat = 0.0f;
-
-    // Baca format: nik;jenis;berat;saldo;tanggal
-    while (fscanf(fp, "%19[^;];%9[^;];%f;%d;%14[^\n]\n",
-                  trx.nik, trx.jenis, &trx.berat, &trx.saldo, trx.tanggal) == 5) {
-
-        if (strcmp(trx.nik, nikTarget) == 0) {
-            totalBerat += trx.berat;
-        }
+void tampilRiwayatByNIK() {
+    FILE *pF = fopen(FILE_TRANSAKSI, "r");
+    if (!pF) {
+        printf("File transaksi (%s) tidak ditemukan.\n", FILE_TRANSAKSI);
+        return;
     }
 
-    fclose(fp);
-    return totalBerat;
+    //input nik
+    char nikCari[17];
+    printf("Masukkan NIK yang ingin dicari: ");
+    scanf(" %16s", &nikCari);
+    printf("=== TAMPILKAN RIWAYAT TRANSAKSI ===\n");
+    inputAngkaString(nikCari, sizeof(nikCari), "Masukkan NIK yang ingin dicari: ");
+    getchar();
+
+    // Cari nama warga berdasarkan NIK yang dicari
+    int idx_nama = cariIndexNIK(nikCari);
+    if (idx_nama == -1) {
+        printf("\nNIK %s tidak ditemukan dalam daftar warga.\n", nikCari);
+        fclose(pF);
+        return;
+    }
+
+    char namaFormat[101] = data[idx_nama].nama;
+    formatNama(namaFormat);
+    system(CLEAR);
+    printf("=== RIWAYAT TRANSAKSI ===\n");
+    printf("Nama : %s\n", data[idx_nama].nama);
+    printf("Nama : %s\n", namaFormat);
+    printf("NIK  : %s\n\n", nikCari);
+
+    printf("==========================================\n");
+    printf("| %-12s | %-10s | %-10s |\n", "Tanggal", "Jenis", "Saldo");
+    printf("==========================================\n");
+    char line[255];
+    char nik[17];
+    char jenis[10];
+    int saldo;
+    char tanggal[15];
+    int ketemu = 0;
+    while (fgets(line, sizeof(line), pF)) {
+        // Format file: NIK|Jenis|Saldo|Tanggal|
+        int cekFormat = sscanf(line, "%[^|]|%[^|]|%d|%[^|]\n", &nik, &jenis, &saldo, &tanggal);
+        if (cekFormat == 4 && strcmp(nik, nikCari) == 0) { // Cocokkan NIK
+            printf("| %-12s | %-10s | %10d |\n", tanggal, jenis, saldo);
+            ketemu = 1;
+        }
+    }
+    if (!ketemu) {
+        printf("Tidak ditemukan riwayat transaksi untuk NIK %s.\n", nikCari);
+    }
+    fclose(pF);
+    getchar();
 }
 
- void menuLaporanData() {
+// === FUNGSI LAPORAN TOTAL SAMPAH ===
+void menuLaporanData() {
     int pilih;
     do {
         system(CLEAR);
@@ -1004,27 +1040,30 @@ float hitungTotalBeratByNIK(const char *nikTarget) {
         printf("| 4) Laporan per warga (NIK)    |\n");
         printf("| 0) Kembali                    |\n");
         printf("=================================+ \n");
-
-        printf("Masukkan input anda: ");
-        pilih = inputInt("");
+        pilih = inputInt("Masukkan input anda: ");
 
         switch (pilih) {
             case 1:
                 laporanTotalSemua();
+                pause();
                 break;
             case 2:
                 laporanPerRW();
+                pause();
                 break;
             case 3:
                 laporanPerRT();
+                pause();
                 break;
             case 4:
                 laporanPerWarga();
+                pause();
                 break;
             case 0:
                 break;
             default:
                 printf("Pilihan tidak valid.\n");
+                pause();
                 break;
         }
 
@@ -1033,49 +1072,6 @@ float hitungTotalBeratByNIK(const char *nikTarget) {
             pause();
         }
     } while (pilih != 0);
-}
-
-void laporanTotalSemua() {
-    if (jlhWarga == 0) {
-        printf("\nBelum ada data warga.\n");
-        return;
-    }
-
-    FILE *fp = fopen(FILE_TRANSAKSI, "r");
-    if (!fp) {
-        printf("\nBelum ada data transaksi setor sampah.\n");
-        return;
-    }
-    fclose(fp);
-
-    system(CLEAR);
-    printf("==========================================================================\n");
-    printf("|                     LAPORAN TOTAL SAMPAH (SEMUA)                        |\n");
-    printf("==========================================================================\n");
-    printf("| %-3s | %-20s | %-16s | %-5s | %-5s | %-12s |\n",
-           "No", "Nama", "NIK", "RW", "RT", "Total (kg)");
-    printf("--------------------------------------------------------------------------\n");
-
-    int nomor = 1;
-    for (int i = 0; i < jlhWarga; i++) {
-        float totalBerat = hitungTotalBeratByNIK(data[i].nik);
-        if (totalBerat > 0.0f) {
-            printf("| %-3d | %-20s | %-16s | %-5s | %-5s | %10.2f   |\n",
-                   nomor,
-                   data[i].nama,
-                   data[i].nik,
-                   data[i].rw,
-                   data[i].rt,
-                   totalBerat);
-            nomor++;
-        }
-    }
-
-    if (nomor == 1) {
-        printf("| Tidak ada warga yang memiliki setoran sampah.                          |\n");
-    }
-
-    printf("==========================================================================\n");
 }
 
 void laporanPerRW() {
@@ -1177,8 +1173,6 @@ void laporanPerWarga() {
         return;
     }
 
-    float totalBerat = hitungTotalBeratByNIK(nikInput);
-
     system(CLEAR);
     printf("===========================================\n");
     printf("|    LAPORAN TOTAL SAMPAH PER WARGA       |\n");
@@ -1186,7 +1180,15 @@ void laporanPerWarga() {
     printf("| Nama : %-25s |\n", data[idx].nama);
     printf("| NIK  : %-16s       |\n", data[idx].nik);
     printf("| RW/RT: %s/%s                    |\n", data[idx].rw, data[idx].rt);
-    printf("| Total Sampah : %8.2f kg        |\n", totalBerat);
+    printf("| Total Sampah : %8.2f kg        |\n", data[idx].totalSampahKg);
     printf("===========================================\n");
 }
 
+void laporanTotalSemua() {
+    float totalSampah = 0;
+    for (int i = 0; i < jlhWarga; i++) {
+        totalSampah += data[i].totalSampahKg;
+    }
+    printf("\n=== Laporan Keseluruhan Kelurahan ===\n");
+    printf("Total Nilai Seluruh Sampah: Rp %ld\n", totalSampah);
+}
