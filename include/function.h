@@ -22,7 +22,6 @@ typedef struct {
     char nik[20];
     char jenis[10];   
     int saldo;
-    float berat;  
     char tanggal[15]; 
 } RiwayatTransaksi;
 
@@ -97,8 +96,6 @@ void tarikSaldo();
 // fungsi riwayat transaksi
 void tampilRiwayatByNIK();
 
-// fungsi laporan total sampah
-void laporanPerWarga();
 //Laporan total sampah (berdasarkan BERAT kg)
 void menuLaporanData();
 void laporanTotalSemua();
@@ -106,8 +103,6 @@ void laporanPerRW();
 void laporanPerRT();
 void laporanPerWarga();
 
-// fungsi bantu untuk hitung total berat
-float hitungTotalBeratByNIK(const char *nikTarget);
 
 #endif
 
