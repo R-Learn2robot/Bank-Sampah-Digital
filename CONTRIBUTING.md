@@ -1,1 +1,0 @@
-Kontribusi: Setiap anggota tim aktif berkontribusi melalui commit mereka masing-masing di repositori. Detail kontribusi spesifik setiap anggota dapat dilihat langsung di halaman GitHub repository (bagian Insights atau Contributors).
