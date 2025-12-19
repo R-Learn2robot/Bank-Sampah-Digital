@@ -515,8 +515,7 @@ void setorSampah() {
     printf("|        SETOR SAMPAH       |\n");
     printf("+===========================+\n");
     // 1. Input NIK
-    printf("Masukkan NIK Anda: ");
-    scanf(" %16s", inputNik);
+    inputAngkaString(inputNik, sizeof(inputNik), "Masukkan NIK Anda: ");
     getchar();
 
     // 2. Cek NIK
@@ -980,8 +979,6 @@ void tampilRiwayatByNIK() {
 
     //input nik
     char nikCari[17];
-    printf("Masukkan NIK yang ingin dicari: ");
-    scanf(" %16s", &nikCari);
     printf("=== TAMPILKAN RIWAYAT TRANSAKSI ===\n");
     inputAngkaString(nikCari, sizeof(nikCari), "Masukkan NIK yang ingin dicari: ");
     getchar();
@@ -994,11 +991,11 @@ void tampilRiwayatByNIK() {
         return;
     }
 
-    char namaFormat[101] = data[idx_nama].nama;
+    char namaFormat[101];
+    strcpy(namaFormat, data[idx_nama].nama);
     formatNama(namaFormat);
     system(CLEAR);
     printf("=== RIWAYAT TRANSAKSI ===\n");
-    printf("Nama : %s\n", data[idx_nama].nama);
     printf("Nama : %s\n", namaFormat);
     printf("NIK  : %s\n\n", nikCari);
 
@@ -1099,10 +1096,10 @@ void laporanPerRW() {
     }
 
     // 2) Hitung total berat semua warga di RW ini
-    float totalBeratRW = 0.0f;
+    float totalBeratRW = 0.0;
     for (int i = 0; i < jlhWarga; i++) {
         if (strcmp(data[i].rw, rwInput) == 0) {
-            totalBeratRW += hitungTotalBeratByNIK(data[i].nik);
+            totalBeratRW += data[i].totalSampahKg;
         }
     }
 
@@ -1121,10 +1118,8 @@ void laporanPerRT() {
     }
 
     char rwInput[3], rtInput[3];
-    printf("Masukkan RW: ");
-    inputString(rwInput, sizeof(rwInput), "");
-    printf("Masukkan RT: ");
-    inputString(rtInput, sizeof(rtInput), "");
+    inputAngkaString(rwInput, sizeof(rwInput), "Masukkan RW: ");
+    inputAngkaString(rtInput, sizeof(rtInput), "Masukkan RT: ");
 
     // 1) Cek apakah kombinasi RW/RT terdaftar
     int adaRT = 0;
@@ -1146,7 +1141,7 @@ void laporanPerRT() {
     for (int i = 0; i < jlhWarga; i++) {
         if (strcmp(data[i].rw, rwInput) == 0 &&
             strcmp(data[i].rt, rtInput) == 0) {
-            totalBeratRT += hitungTotalBeratByNIK(data[i].nik);
+            totalBeratRT += data[i].totalSampahKg;
         }
     }
 
@@ -1165,7 +1160,7 @@ void laporanPerWarga() {
     }
 
     char nikInput[17];
-    inputNik(nikInput, sizeof(nikInput), "Masukkan NIK: ");
+    inputAngkaString(nikInput, sizeof(nikInput), "Masukkan NIK: ");
 
     int idx = cariIndexNIK(nikInput);
     if (idx == -1) {
@@ -1173,11 +1168,14 @@ void laporanPerWarga() {
         return;
     }
 
+    char namaFormat[101];
+    strcpy(namaFormat, data[idx].nama);
+    formatNama(namaFormat);
     system(CLEAR);
     printf("===========================================\n");
     printf("|    LAPORAN TOTAL SAMPAH PER WARGA       |\n");
     printf("===========================================\n");
-    printf("| Nama : %-25s |\n", data[idx].nama);
+    printf("| Nama : %-25s |\n", namaFormat);
     printf("| NIK  : %-16s       |\n", data[idx].nik);
     printf("| RW/RT: %s/%s                    |\n", data[idx].rw, data[idx].rt);
     printf("| Total Sampah : %8.2f kg        |\n", data[idx].totalSampahKg);

@@ -60,7 +60,7 @@ int main() {
             break;
         
         case 8:
-            menuTotalSampah();
+            menuLaporanData();
             pause();
             break;
 
