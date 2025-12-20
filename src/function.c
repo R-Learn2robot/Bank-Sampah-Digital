@@ -302,14 +302,10 @@ int cariIndexNama() { //cari index berdasarkan nama
 
     //minta pilihan
     do {
-        printf("Pilih nomor data yang diinginkan (1-%d), atau 0 untuk batal: ",
+        printf("Pilih nomor data yang diinginkan (1-%d), atau 0 untuk batal",
             jumlahKetemu);
 
-        if (scanf("%d", &pilihan) != 1) {
-            while (getchar() != '\n');   //bersihkan input jika bukan angka
-            printf("Input tidak valid.\n");
-            continue;
-        }
+        pilihan = inputInt("Input");
 
         if (pilihan == 0) {
             printf("Dibatalkan.\n");
