@@ -31,6 +31,7 @@ Anggota:
 | 5  | Hapus data warga                               |
 | 6  | Penarikan saldo semua/spesifik                 |
 | 7  | Riwayat Transaksi                              |
+| 8  | Total Sampah Terkumpul                         |
 
 🛠️ Konsep Pemrograman yang Digunakan
 | Konsep              | Implementasi                                       |
