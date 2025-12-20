@@ -19,7 +19,7 @@ int main() {
         printf("| 5) Edit data warga                    |\n");
         printf("| 6) Tarik saldo                        |\n");
         printf("| 7) Riwayat transaksi                  |\n");
-        printf("| 8) Laporan total sampah               |\n");
+        printf("| 8) Laporan sampah terkumpul           |\n");
         printf("| 0) Exit                               |\n");
         printf("=========================================\n");
         input = inputInt("Masukkan input anda (1-8): ");
