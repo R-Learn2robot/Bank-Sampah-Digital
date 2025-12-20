@@ -257,13 +257,13 @@ int cariIndexNama() { // cari index berdasarkan nama
         printf("\n+===============================================+\n");
         printf("|               DITEMUKAN 1 DATA               |\n");
         printf("+----------------------+-----------------------+\n");
-        printf("| %-20s | %-21s |\n", "Nama",   namaFormat);
-        printf("| %-20s | %-21s |\n", "NIK",    data[idx].nik);
-        printf("| %-20s | %-21s |\n", "RW",     data[idx].rw);
-        printf("| %-20s | %-21s |\n", "RT",     data[idx].rt);
-        printf("| %-20s | %-21s |\n", "Alamat", data[idx].alamat);
-        printf("| %-20s | %-21d |\n", "Saldo",  data[idx].saldo);
-        printf("+----------------------+-----------------------+\n");
+        printf(" Nama   : %-21s\n", cariNama);
+        printf(" NIK    : %-21s\n", data[idx].nik);
+        printf(" RW     : %-21s\n", data[idx].rw);
+        printf(" RT     : %-21s\n", data[idx].rt);
+        printf(" Alamat : %-21s\n", data[idx].alamat);
+        printf(" Saldo  : %-21d\n", data[idx].saldo);
+                printf("+----------------------+-----------------------+\n");
         pause();
         return idx;
     }
@@ -310,12 +310,12 @@ int cariIndexNama() { // cari index berdasarkan nama
             printf("+===============================================+\n");
             printf("|              ANDA MEMILIH DATA                |\n");
             printf("+----------------------+-----------------------+\n");
-            printf(" %-20s | %-21s \n", "Nama",   data[idxTerpilih].nama);
-            printf(" %-20s | %-21s \n", "NIK",    data[idxTerpilih].nik);
-            printf(" %-20s | %-21s \n", "RW",     data[idxTerpilih].rw);
-            printf(" %-20s | %-21s \n", "RT",     data[idxTerpilih].rt);
-            printf(" %-20s | %-21s \n", "Alamat", data[idxTerpilih].alamat);
-            printf(" %-20s | %-21d \n", "Saldo",  data[idxTerpilih].saldo);
+            printf("Nama   : %-21s\n", data[idxTerpilih].nama);
+            printf("NIK    : %-21s\n", data[idxTerpilih].nik);
+            printf("RW     : %-21s\n", data[idxTerpilih].rw);
+            printf("RT     : %-21s\n", data[idxTerpilih].rt);
+            printf("Alamat : %-21s\n", data[idxTerpilih].alamat);
+            printf("Saldo  : %-21d\n", data[idxTerpilih].saldo);
             printf("+----------------------+-----------------------+\n");
             pause();
             return idxTerpilih;
@@ -391,13 +391,12 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
     printf("\n+===============================================+\n");
     printf("|             DATA WARGA TERSIMPAN             |\n");
     printf("+----------------------+-----------------------+\n");
-    printf(" %-20s | %-21s \n", "Nama",   namaFormat);
-    printf(" %-20s | %-21s \n", "NIK",    data[jlhWarga].nik);
-    printf(" %-20s | %-21s \n", "RW",     data[jlhWarga].rw);
-    printf(" %-20s | %-21s \n", "RT",     data[jlhWarga].rt);
-    printf(" %-20s | %-21s \n", "Alamat", data[jlhWarga].alamat);
-    printf(" %-20s | %-21d \n", "Saldo",  data[jlhWarga].saldo);
-    printf("+----------------------+-----------------------+\n\n");;
+    printf(" Nama   : %-21s\n", namaFormat);
+    printf(" NIK    : %-21s\n", data[jlhWarga].nik);
+    printf(" RW     : %-21s\n", data[jlhWarga].rw);
+    printf(" RT     : %-21s\n", data[jlhWarga].rt);
+    printf(" Alamat : %-21s\n", data[jlhWarga].alamat);
+    printf(" Saldo  : %-21d\n\n", data[jlhWarga].saldo);;;
     
     jlhWarga++;
     sortRWRTNama();
@@ -420,12 +419,15 @@ void tampilkanListWarga() { // fungsi tampilkan list data dari file
         char namaFormat[101];
         strcpy(namaFormat, data[i].nama);
         formatNama(namaFormat);
-        printf(" %-20s | %-21s \n", "Nama",   namaFormat);
-        printf(" %-20s | %-21s \n", "NIK",    data[i].nik);
-        printf(" %-20s | %-21s \n", "RW",     data[i].rw);
-        printf(" %-20s | %-21s \n", "RT",     data[i].rt);
-        printf(" %-20s | %-21s \n", "Alamat", data[i].alamat);
-        printf(" %-20s | %-21d \n", "Saldo",  data[i].saldo);
+        printf("\n+===============================================+\n");
+        printf("|              DATA WARGA DITEMUKAN            |\n");
+        printf("+----------------------+-----------------------+\n");
+        printf("Nama   : %-21s\n", namaFormat);
+        printf("NIK    : %-21s\n", data[i].nik);
+        printf("RW     : %-21s\n", data[i].rw);
+        printf("RT     : %-21s\n", data[i].rt);
+        printf("Alamat : %-21s\n", data[i].alamat);
+        printf("Saldo  : %-21d\n", data[i].saldo);
         printf("+----------------------+-----------------------+\n");
     }
 
@@ -451,12 +453,12 @@ void pencarianDataNIK() { // fungsi cari data berdasarkan NIK
         printf("\n+===============================================+\n");
         printf("|              DATA WARGA DITEMUKAN            |\n");
         printf("+----------------------+-----------------------+\n");
-        printf(" %-20s | %-21s \n", "Nama",   namaFormat);
-        printf(" %-20s | %-21s \n", "NIK",    data[index].nik);
-        printf(" %-20s | %-21s \n", "RW",     data[index].rw);
-        printf(" %-20s | %-21s \n", "RT",     data[index].rt);
-        printf(" %-20s | %-21s \n", "Alamat", data[index].alamat);
-        printf(" %-20s | %-21d \n", "Saldo",  data[index].saldo);
+        printf(" Nama   : %-21s\n", namaFormat);
+        printf(" NIK    : %-21s\n", data[index].nik);
+        printf(" RW     : %-21s\n", data[index].rw);
+        printf(" RT     : %-21s\n", data[index].rt);
+        printf(" Alamat : %-21s\n", data[index].alamat);
+        printf(" Saldo  : %-21d\n", data[index].saldo);
         printf("+----------------------+-----------------------+\n");
     }
 }
@@ -618,18 +620,17 @@ void setorSampah() {
     printf("\n+===========================================================+\n");
     printf("|                    KONFIRMASI SETORAN                    |\n");
     printf("+-------------------------------+---------------------------+\n");
-    printf("| %-29s | %-25s |\n", "Nama", namaFormat);
-    printf("| %-29s | %-25s |\n", "NIK", data[indexWarga].nik);
-    printf("| %-29s | %-25s |\n", "Jenis", jenisSampah);
-    printf("| %-29s | %8.2f kg               |\n", "Berat", beratSampah);
-    printf("| %-29s | Rp %-20d|\n", "Harga", hargaPerKg);
-    printf("| %-29s | Rp %-20d|\n", "Total Saldo Ditambahkan", totalSaldo);
-    printf("| %-29s | Rp %-20d|\n", "Saldo Terbaru Anda", data[indexWarga].saldo);
-    printf("| %-29s | %-25s |\n", "Tanggal", tanggal);
+    printf("Nama                 : %-25s\n", namaFormat);
+    printf("NIK                  : %-25s\n", data[indexWarga].nik);
+    printf("Jenis                : %-25s\n", jenisSampah);
+    printf("Berat                : %8.2f kg\n", beratSampah);
+    printf("Harga per kg         : Rp %-20d\n", hargaPerKg);
+    printf("Total Saldo Ditambah : Rp %-20d\n", totalSaldo);
+    printf("Saldo Terbaru Anda   : Rp %-20d\n", data[indexWarga].saldo);
+    printf("Tanggal              : %-25s\n", tanggal);
     printf("+-------------------------------+---------------------------+\n");
     printf("| Setoran berhasil dicatat.                                 |\n");
     printf("+===========================================================+\n");
-    printf("\nSetoran berhasil dicatat.\n");
     pause();
 }
 
@@ -655,12 +656,12 @@ void hapusByNIK() {// fungsi hapus data warga berdasarkan NIK
     printf("\n+===============================================+\n");
     printf("|              DATA WARGA DITEMUKAN            |\n");
     printf("+----------------------+-----------------------+\n");
-    printf(" %-20s | %-21s \n", "Nama",   namaFormat);
-    printf(" %-20s | %-21s \n", "NIK",    data[index].nik);
-    printf(" %-20s | %-21s \n", "RW",     data[index].rw);
-    printf(" %-20s | %-21s \n", "RT",     data[index].rt);
-    printf(" %-20s | %-21s \n", "Alamat", data[index].alamat);
-    printf(" %-20s | %-21d \n", "Saldo",  data[index].saldo);
+    printf("Nama   : %-21s\n", namaFormat);
+    printf("NIK    : %-21s\n", data[index].nik);
+    printf("RW     : %-21s\n", data[index].rw);
+    printf("RT     : %-21s\n", data[index].rt);
+    printf("Alamat : %-21s\n", data[index].alamat);
+    printf("Saldo  : %-21d\n", data[index].saldo);
     printf("+----------------------+-----------------------+\n");
     printf("Anda yakin hapus data warga ini (y/n): ");
     scanf(" %c", &pilih);
@@ -741,14 +742,14 @@ void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di
         system(CLEAR);
         printf("\n+===============================================+\n");
         printf("|                 DATA WARGA                   |\n");
-        printf("+----------------------+-----------------------+\n");
-        printf("| %-20s | %-21s |\n", "Nama",   data[index].nama);
-        printf("| %-20s | %-21s |\n", "NIK",    data[index].nik);
-        printf("| %-20s | %-21s |\n", "RW",     data[index].rw);
-        printf("| %-20s | %-21s |\n", "RT",     data[index].rt);
-        printf("| %-20s | %-21s |\n", "Alamat", data[index].alamat);
-        printf("| %-20s | %-21d |\n", "Saldo",  data[index].saldo);
-        printf("+----------------------+-----------------------+\n");
+        printf("+----------------------------------------------+\n");
+        printf("Nama   : %-21s\n", data[index].nama);
+        printf("NIK    : %-21s\n", data[index].nik);
+        printf("RW     : %-21s\n", data[index].rw);
+        printf("RT     : %-21s\n", data[index].rt);
+        printf("Alamat : %-21s\n", data[index].alamat);
+        printf("Saldo  : %-21d\n", data[index].saldo);
+        printf("+----------------------------------------------+\n");
 
         printf("\n+===========================+\n");
         printf("|     MASUKKAN DATA BARU   |\n");
@@ -824,7 +825,7 @@ void editDataWarga() { // fungsi menu edit warga
             printf("\n+=================================================+\n");
             printf("|   PENCARIAN DATA WARGA BERDASARKAN NIK          |\n");
             printf("+-------------------------------------------------+\n");
-            printf("| Masukkan NIK yang ingin dicari: ");
+            printf("  Masukkan NIK yang ingin dicari: ");
             scanf(" %16s", cariNIK);
             index = cariIndexNIK(cariNIK);
             masukkanDataBaru(index);
@@ -874,12 +875,12 @@ void tarikSaldo() {
         printf("\n+===============================================+\n");
         printf("|              DATA WARGA DITEMUKAN            |\n");
         printf("+----------------------+-----------------------+\n");
-        printf("| %-20s | %-21s |\n", "Nama",   namaFormat);
-        printf("| %-20s | %-21s |\n", "NIK",    data[index].nik);
-        printf("| %-20s | %-21s |\n", "RW",     data[index].rw);
-        printf("| %-20s | %-21s |\n", "RT",     data[index].rt);
-        printf("| %-20s | %-21s |\n", "Alamat", data[index].alamat);
-        printf("| %-20s | %-21d |\n", "Saldo",  data[index].saldo);
+        printf(" Nama   : %-21s\n", namaFormat);
+        printf(" NIK    : %-21s\n", data[index].nik);
+        printf(" RW     : %-21s\n", data[index].rw);
+        printf(" RT     : %-21s\n", data[index].rt);
+        printf(" Alamat : %-21s\n", data[index].alamat);
+        printf(" Saldo  : %-21d\n", data[index].saldo);
         printf("+----------------------+-----------------------+\n");
 
         printf("\n+============== PILIH ===============+\n");
@@ -908,10 +909,10 @@ void tarikSaldo() {
                 printf("\n+===========================================+\n");
                 printf("|        KONFIRMASI TUKAR SALDO            |\n");
                 printf("+-------------------------------------------+\n");
-                printf("| Nama               : %s\n", namaFormat);
-                printf("| NIK                : %s\n", data[index].nik);
-                printf("| Saldo yang ditukar : %d\n", saldoDiTukar);
-                printf("| Saldo terbaru      : %d\n", data[index].saldo);
+                printf("  Nama               : %s\n", namaFormat);
+                printf("  NIK                : %s\n", data[index].nik);
+                printf("  Saldo yang ditukar : %d\n", saldoDiTukar);
+                printf("  Saldo terbaru      : %d\n", data[index].saldo);
                 printf("+===========================================+\n");
                 save();
             }
@@ -931,10 +932,10 @@ void tarikSaldo() {
                 printf("\n+===========================================+\n");
                 printf("|        KONFIRMASI TUKAR SALDO            |\n");
                 printf("+-------------------------------------------+\n");
-                printf("| Nama               : %s\n", namaFormat);
-                printf("| NIK                : %s\n", data[index].nik);
-                printf("| Saldo yang ditukar : %d\n", saldoDiTukar);
-                printf("| Saldo terbaru      : %d\n", data[index].saldo);
+                printf(" Nama               : %s\n", namaFormat);
+                printf(" NIK                : %s\n", data[index].nik);
+                printf(" Saldo yang ditukar : %d\n", saldoDiTukar);
+                printf(" Saldo terbaru      : %d\n", data[index].saldo);
                 printf("+===========================================+\n");
             }
             pause();
@@ -973,7 +974,9 @@ void tampilRiwayatByNIK() {
 
     //input nik
     char nikCari[17];
-    printf("=== TAMPILKAN RIWAYAT TRANSAKSI ===\n");
+    printf("+=======================================+\n");
+    printf("|      TAMPILKAN RIWAYAT TRANSAKSI     |\n");
+    printf("+=======================================+\n");
     inputAngkaString(nikCari, sizeof(nikCari), "Masukkan NIK yang ingin dicari: ");
 
     // Cari nama warga berdasarkan NIK yang dicari
@@ -988,10 +991,11 @@ void tampilRiwayatByNIK() {
     strcpy(namaFormat, data[idx_nama].nama);
     formatNama(namaFormat);
     system(CLEAR);
-    printf("=== RIWAYAT TRANSAKSI ===\n");
+   printf("+===========================+\n");
+    printf("|     RIWAYAT TRANSAKSI    |\n");
+    printf("+===========================+\n");
     printf("Nama : %s\n", namaFormat);
     printf("NIK  : %s\n\n", nikCari);
-
     printf("==========================================\n");
     printf("| %-12s | %-10s | %-10s |\n", "Tanggal", "Jenis", "Saldo");
     printf("==========================================\n");
@@ -1073,9 +1077,12 @@ void laporanTotalSemua() {
     for (int i = 0; i < jlhWarga; i++) {
         totalSampah += data[i].totalSampahKg;
     }
-    
-    printf("\n=== Laporan Keseluruhan Kelurahan ===\n");
-    printf("Total Berat Seluruh Sampah: %.2f kg\n", totalSampah);
+
+    printf("\n+==============================================+\n");
+    printf("|       LAPORAN KESELURUHAN KELURAHAN         |\n");
+    printf("+----------------------------------------------+\n");
+    printf("| Total Berat Seluruh Sampah : %10.2f kg |\n", totalSampah);
+    printf("+==============================================+\n");
 }
 
 // ===================
@@ -1159,7 +1166,8 @@ void laporanPerRT() {
     printf("===========================================\n");
     printf("|       LAPORAN TOTAL SAMPAH PER RT       |\n");
     printf("===========================================\n");
-    printf("| RW %s / RT %s : Total = %8.2f kg        |\n", rwInput, rtInput, totalBeratRT);
+    printf("===========================================\n");
+    printf("| RT %s : Total = %8.2f kg                |\n", rtInput, totalBeratRT);
     printf("===========================================\n");
 }
 
@@ -1188,9 +1196,11 @@ void laporanPerWarga() {
     printf("===========================================\n");
     printf("|    LAPORAN TOTAL SAMPAH PER WARGA       |\n");
     printf("===========================================\n");
-    printf("| Nama : %-25s |\n", namaFormat);
-    printf("| NIK  : %-16s       |\n", data[idx].nik);
-    printf("| RW/RT: %s/%s                    |\n", data[idx].rw, data[idx].rt);
-    printf("| Total Sampah : %8.2f kg        |\n", data[idx].totalSampahKg);
     printf("===========================================\n");
+    printf("Nama          : %-25s\n", namaFormat);
+    printf("NIK           : %-16s\n", data[idx].nik);
+    printf("RW/RT         : %s/%s\n", data[idx].rw, data[idx].rt);
+    printf("Total Sampah  : %8.2f kg\n", data[idx].totalSampahKg);
+    printf("===========================================\n");
+    }
 }
