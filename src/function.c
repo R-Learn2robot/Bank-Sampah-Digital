@@ -1,17 +1,17 @@
 #include "../include/function.h"
 
-// === VARIABEL GLOBAL ===
+//VARIABEL GLOBAL
 Warga *data = NULL;
 int jlhWarga = 0;
 int kapasitasWarga = 0;
 
-// === FUNGSI UTILITIES ===
-void pause() { //fungsi agar setelah setiap fungsi selesai dia berhenti sejenak baru melakukan clear screen
+//FUNGSI UTILITIES
+void pause() { //setiap fungsi selesai, berhenti sebentar lalu melakukan clear screen
     printf("\ntekan enter untuk lanjut...");
     getchar();
 }
 
-void save() { //menyimpan data warga kedalam file.txt (Nama fungsi tetap 'save' untuk kompatibilitas jika dipanggil dari main.c)
+void save() { //menyimpan data warga kedalam file.txt
     FILE *pF = fopen(DATA_WARGA, "w");
     if (!pF){
         printf("Gagal membuka file data warga (%s) untuk ditulis!\n", DATA_WARGA);
@@ -25,10 +25,10 @@ void save() { //menyimpan data warga kedalam file.txt (Nama fungsi tetap 'save' 
     fclose(pF);
 }
 
-void load() { // membaca file dan memasukkannya ke array of struct warga data[]
+void load() { //membaca file dan memasukkannya ke array of struct warga data[]
     FILE *pF = fopen(DATA_WARGA, "r");
     if (!pF){
-        // Jika file tidak ditemukan, anggap data kosong
+        //Jika file tidak ditemukan=data kosong
         printf("File data warga (%s) tidak ditemukan. Akan dibuat jika ada data baru.\n", DATA_WARGA);
         return;
     }
@@ -45,7 +45,7 @@ void load() { // membaca file dan memasukkannya ke array of struct warga data[]
     fclose(pF);
 }
 
-void cekKapasistas() { // fungsi mengecek apakah kapasitas array warga masih cukup
+void cekKapasistas() { //mengecek apakah kapasitas array warga masih cukup
     if (jlhWarga >= kapasitasWarga) {
         kapasitasWarga = (kapasitasWarga == 0) ? 2 : kapasitasWarga * 2;
         Warga *temp = realloc(data, kapasitasWarga * sizeof(Warga));
@@ -57,7 +57,7 @@ void cekKapasistas() { // fungsi mengecek apakah kapasitas array warga masih cuk
     }
 }
 
-void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar tidak memori leak
+void hapusMemori() { //membersihkan memori setelah program selesai agar tidak memori leak
     free(data);
     data = NULL;
     kapasitasWarga = 0;
@@ -65,20 +65,20 @@ void hapusMemori() { // fungsi membersihkan memori setelah program selesai agar 
 
 }
 
-void getTanggalHariIni(char tanggal[]) { // fungsi mengambil tanggal hari ini
+void getTanggalHariIni(char tanggal[]) { //fungsi mengambil tanggal hari ini
     time_t sekarang = time(NULL);
     struct tm *info = localtime(&sekarang);
 
     sprintf(tanggal, "%02d/%02d/%04d", info->tm_mday, info->tm_mon + 1, info->tm_year + 1900);
 }
 
-void toLowerCase(char *str) { // agar string jadi lowercase
+void toLowerCase(char *str) { //agar string jadi lowercase
     for (int i = 0; str[i] != '\0'; i++) {
         str[i] = tolower((unsigned char)str[i]);
     }
 }
 
-void formatNama(char *nama) { // agar string ter format
+void formatNama(char *nama) { //agar string ter format
     int setelahSpasi = 1; 
 
     for (int i = 0; nama[i] != '\0'; i++) {
@@ -95,8 +95,8 @@ void formatNama(char *nama) { // agar string ter format
     }
 }
 
-// === FUNGSI INPUT(blm di implementasi)x` ===
-int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya angka
+//FUNGSI INPUT
+int inputInt(char *perintah) { //mengecek apakah yang dimasukkan hanya angka
     char string[100];
     int angka;
     char sisa;
@@ -122,7 +122,7 @@ int inputInt(char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya an
     }
 }
 
-void inputString(char *string, int size, const char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya huruf
+void inputString(char *string, int size, const char *perintah) { //mengecek apakah yang dimasukkan hanya huruf
     int valid;
     do {
         valid = 1;
@@ -155,7 +155,7 @@ void inputString(char *string, int size, const char *perintah) { //fungsi mengec
     } while (!valid);
 }
 
-void inputAngkaString(char *nik, int size, const char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya huruf
+void inputAngkaString(char *nik, int size, const char *perintah) { //mengecek apakah yang dimasukkan hanya huruf
     int valid;
 
     do {
@@ -186,7 +186,7 @@ void inputAngkaString(char *nik, int size, const char *perintah) { //fungsi meng
     } while (!valid);
 }
 
-void inputAlamat(char *string, int size, const char *perintah) { //fungsi mengecek apakah yang dimasukkan hanya huruf
+void inputAlamat(char *string, int size, const char *perintah) { //mengecek apakah yang dimasukkan hanya huruf
     int valid;
     do {
         valid = 1;
@@ -212,8 +212,8 @@ void inputAlamat(char *string, int size, const char *perintah) { //fungsi mengec
 }
 
 
-// === FUNGSI PENCARIAN ===
-int cariIndexNIK(const char *nik) { // fungsi cari index dari array berdasarkan NIK
+//FUNGSI PENCARIAN
+int cariIndexNIK(const char *nik) { //cari index dari array berdasarkan NIK
     for (int i = 0; i < jlhWarga; i++) {
         if (strcmp(data[i].nik, nik) == 0){
             return i;
@@ -222,7 +222,7 @@ int cariIndexNIK(const char *nik) { // fungsi cari index dari array berdasarkan 
     return -1;
 }
 
-int cariIndexNama() { // cari index berdasarkan nama
+int cariIndexNama() { //cari index berdasarkan nama
     char cariNama[101];
     int indexKetemu[200];   
     int jumlahKetemu = 0;
@@ -234,7 +234,7 @@ int cariIndexNama() { // cari index berdasarkan nama
     printf("|     PENCARIAN DATA WARGA BERDASARKAN NAMA                 |\n");
     printf("+============================================================+\n");
     inputString(cariNama, sizeof(cariNama), "Masukkan nama lengkap: ");
-    // cari semua nama yang sama
+    //cari semua nama yang sama
     char namaFormat[101];
     strcpy(namaFormat, cariNama);
     formatNama(namaFormat);
@@ -251,7 +251,7 @@ int cariIndexNama() { // cari index berdasarkan nama
         return -1;
     }
 
-    // kalau cuma satu, langsung return
+    //kalau cuma satu, langsung return
     if (jumlahKetemu == 1) {
         int idx = indexKetemu[0];
         printf("\n+===============================================+\n");
@@ -268,7 +268,7 @@ int cariIndexNama() { // cari index berdasarkan nama
         return idx;
     }
 
-    // kalau lebih dari satu, tampilkan tabel dan minta user pilih
+    //kalau lebih dari satu, tampilkan tabel dan minta user pilih
     printf("\nDitemukan %d data yang mengandung \"%s\":\n", jumlahKetemu, cariNama);
     printf("============================================================================\n");
     printf("| No |      NIK       | Nama                           | Saldo    |\n");
@@ -286,13 +286,13 @@ int cariIndexNama() { // cari index berdasarkan nama
     }
     printf("============================================================================\n");
 
-    // minta pilihan
+    //minta pilihan
     do {
         printf("Pilih nomor data yang diinginkan (1-%d), atau 0 untuk batal: ",
             jumlahKetemu);
 
         if (scanf("%d", &pilihan) != 1) {
-            while (getchar() != '\n');   // bersihkan input jika bukan angka
+            while (getchar() != '\n');   //bersihkan input jika bukan angka
             printf("Input tidak valid.\n");
             continue;
         }
@@ -323,8 +323,8 @@ int cariIndexNama() { // cari index berdasarkan nama
     } while (1);
 }
 
-// === FUNGSI SORTING (BUBBLE SORT) ===
-void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
+//FUNGSI SORTING(BUBBLE SORT)
+void sortRWRTNama() { //sorting data berdasarkan RW lalu RT lalu nama
     if (jlhWarga <= 1) {
         return;
     }
@@ -359,8 +359,8 @@ void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
     }
 }
 
-// === FUNGSI TAMBAH DATA WARGA ===
-void tambahWarga(){ // fungsi tambah data warga ke file.txt
+//FUNGSI TAMBAH DATA WARGA
+void tambahWarga(){ //tambah data warga ke file.txt
     system(CLEAR);
     cekKapasistas();
     char nikInput[17];
@@ -404,8 +404,8 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
     save();
 }
 
-// === FUNGSI MELIHAT DATA WARGA ===
-void tampilkanListWarga() { // fungsi tampilkan list data dari file
+//FUNGSI MELIHAT DATA WARGA
+void tampilkanListWarga() { //menampilkan list data dari file
     if (jlhWarga == 0) {
         system(CLEAR);
         printf("belum ada warga yang terdaftar");
@@ -432,7 +432,7 @@ void tampilkanListWarga() { // fungsi tampilkan list data dari file
 
 }
 
-void pencarianDataNIK() { // fungsi cari data berdasarkan NIK
+void pencarianDataNIK() { //cari data berdasarkan NIK
     char cariNIK[17];
     system(CLEAR);
     printf("+===========================================================+\n");
@@ -461,7 +461,7 @@ void pencarianDataNIK() { // fungsi cari data berdasarkan NIK
     }
 }
 
-void liatDataWarga() { // fungsi menu melihat semua data warga atau spesifik
+void liatDataWarga() { //melihat semua data warga atau spesifik
     int input;
     int berjalan = 1;
     do {
@@ -494,7 +494,7 @@ void liatDataWarga() { // fungsi menu melihat semua data warga atau spesifik
     } while (berjalan);
 }
 
-// === FUNGSI SETOR SAMPAH ===
+//FUNGSI SETOR SAMPAH
 void setorSampah() {
     char inputNik[17];
     int indexWarga;
@@ -509,10 +509,10 @@ void setorSampah() {
     printf("+===========================+\n");
     printf("|        SETOR SAMPAH       |\n");
     printf("+===========================+\n");
-    // 1. Input NIK
+    //Input NIK
     inputAngkaString(inputNik, sizeof(inputNik), "Masukkan NIK Anda: ");
 
-    // 2. Cek NIK
+    //Cek NIK
     indexWarga = cariIndexNIK(inputNik);
     if (indexWarga == -1) {
         printf("\nNIK tidak ditemukan. Proses setor sampah dibatalkan.\n");
@@ -567,7 +567,7 @@ void setorSampah() {
     } while (berjalan1);
     
 
-    // 3. Input Berat Sampah
+    //Input Berat Sampah
     int berjalan2 = 1;
     do
     {
@@ -575,7 +575,7 @@ void setorSampah() {
         printf("\nMasukkan berat sampah (kg): ");
         if (scanf("%f", &beratSampah) != 1) {
             printf("Input harus berupa angka!\n");
-            while (getchar() != '\n'); // bersihkan buffer
+            while (getchar() != '\n'); //bersihkan buffer
             pause();
             continue;
         }
@@ -599,7 +599,7 @@ void setorSampah() {
     save(); 
     
 
-    // 7. Tambahkan ke File Riwayat
+    //Tambahkan ke File Riwayat
     FILE *pF_transaksi = fopen(FILE_TRANSAKSI, "a");
     if (!pF_transaksi) {
         printf("Gagal membuka file transaksi (%s) untuk ditambahkan!\n", FILE_TRANSAKSI);
@@ -607,7 +607,7 @@ void setorSampah() {
         return;
     }
 
-    // Format file: NIK|Jenis|Saldo|Tanggal|
+    //Format file: NIK,Jenis,Saldo,Tanggal
     fprintf(pF_transaksi, "%s|masuk|%d|%s|\n",
             data[indexWarga].nik,
             totalSaldo,
@@ -633,8 +633,8 @@ void setorSampah() {
     pause();
 }
 
-// === FUNGSI HAPUS DATA WARGA ===
-void hapusByNIK() {// fungsi hapus data warga berdasarkan NIK
+//FUNGSI HAPUS DATA WARGA
+void hapusByNIK() {//berdasarkan NIK
     char cariNIK[17];
     char pilih;
     system(CLEAR);
@@ -677,7 +677,7 @@ void hapusByNIK() {// fungsi hapus data warga berdasarkan NIK
     }
 }
 
-void hapusSemua() {// fungsi hapus semua data
+void hapusSemua() {//hapus semua data
     char konfirmasi;
     printf("Anda yakin ingin menghapus semua data (y/n): ");
     scanf(" %c", &konfirmasi);
@@ -690,7 +690,7 @@ void hapusSemua() {// fungsi hapus semua data
     }
 }
 
-void hapusDataWarga() {// fungsi menu hapus data warga
+void hapusDataWarga() {//hapus data warga
     int input;
     int berjalan = 1;
     do
@@ -724,8 +724,8 @@ void hapusDataWarga() {// fungsi menu hapus data warga
     } while (berjalan);
 }
 
-// === FUNGSI EDIT DATA WARGA ===
-void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di edit
+//FUNGSI EDIT DATA WARGA
+void masukkanDataBaru(const int index) { //input data baru setelah di edit
     int input;
     int berjalan = 1;
     char nikInput[17];
@@ -802,7 +802,7 @@ void masukkanDataBaru(const int index) { // fungsi masukkan data baru setelah di
     printf("Data warga berhasil diperbarui.\n");
 }
 
-void editDataWarga() { // fungsi menu edit warga
+void editDataWarga() {
     char cariNIK[17];
     int index;
     int input;
@@ -844,7 +844,7 @@ void editDataWarga() { // fungsi menu edit warga
     } while (berjalan);
 }
 
-// === FUNGSI TARIK SALDO ===
+//FUNGSI TARIK SALDO
 void tarikSaldo() {
     char cariNIK[17];
     int index;
@@ -963,7 +963,7 @@ void tarikSaldo() {
     fclose(pF_transaksi);
 }
 
-// === FUNGSI RIWAYAT TRANSAKSI ===
+//FUNGSI RIWAYAT TRANSAKSI
 void tampilRiwayatByNIK() {
     FILE *pF = fopen(FILE_TRANSAKSI, "r");
     if (!pF) {
@@ -976,7 +976,7 @@ void tampilRiwayatByNIK() {
     printf("=== TAMPILKAN RIWAYAT TRANSAKSI ===\n");
     inputAngkaString(nikCari, sizeof(nikCari), "Masukkan NIK yang ingin dicari: ");
 
-    // Cari nama warga berdasarkan NIK yang dicari
+    // Cari nama warga memakai NIK
     int idx_nama = cariIndexNIK(nikCari);
     if (idx_nama == -1) {
         printf("\nNIK %s tidak ditemukan dalam daftar warga.\n", nikCari);
@@ -1002,7 +1002,7 @@ void tampilRiwayatByNIK() {
     char tanggal[15];
     int ketemu = 0;
     while (fgets(line, sizeof(line), pF)) {
-        // Format file: NIK|Jenis|Saldo|Tanggal|
+        
         int cekFormat = sscanf(line, "%[^|]|%[^|]|%d|%[^|]\n", &nik, &jenis, &saldo, &tanggal);
         if (cekFormat == 4 && strcmp(nik, nikCari) == 0) { // Cocokkan NIK
             printf("| %-12s | %-10s | %10d |\n", tanggal, jenis, saldo);
@@ -1015,10 +1015,7 @@ void tampilRiwayatByNIK() {
     fclose(pF);
 }
 
-
-// ===================
-// MENU LAPORAN DATA
-// ===================
+//MENU LAPORAN DATA
 void menuLaporanData() {
     int pilih;
     do {
@@ -1064,9 +1061,9 @@ void menuLaporanData() {
     } while (pilih != 0);
 }
 
-// ===================
+
 // LAPORAN TOTAL SEMUA
-// ===================
+
 void laporanTotalSemua() {
     float totalSampah = 0.0;
 
