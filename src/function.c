@@ -1202,5 +1202,5 @@ void laporanPerWarga() {
     printf("RW/RT         : %s/%s\n", data[idx].rw, data[idx].rt);
     printf("Total Sampah  : %8.2f kg\n", data[idx].totalSampahKg);
     printf("===========================================\n");
-    }
 }
+
