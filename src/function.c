@@ -134,6 +134,11 @@ void inputString(char *string, int size, const char *perintah) { //fungsi mengec
         }
         string[strcspn(string, "\n")] = '\0';
 
+        if (strcmp(data[jlhWarga].nama, "0") == 0){
+            valid = 1;
+            break;
+        }
+
         if (strlen(string) == 0) {
             printf("Input tidak boleh kosong!\n");
             valid = 0;
@@ -169,6 +174,10 @@ void inputAngkaString(char *nik, int size, const char *perintah) { //fungsi meng
 
         nik[strcspn(nik, "\n")] = '\0';
 
+        if (strcmp(data[jlhWarga].nama, "0") == 0){
+            valid = 1;
+        }
+
         if (strlen(nik) == 0) {
             printf("Input tidak boleh kosong!\n");
             valid = 0;
@@ -197,6 +206,10 @@ void inputAlamat(char *string, int size, const char *perintah) { //fungsi mengec
             continue;
         }
         string[strcspn(string, "\n")] = '\0';
+
+        if (strcmp(data[jlhWarga].nama, "0") == 0){
+            valid = 1;
+        }
 
         if (strlen(string) == 0) {
             printf("Input tidak boleh kosong!\n");
@@ -359,7 +372,6 @@ void sortRWRTNama() { // sorting data berdasarkan RW lalu RT lalu nama
 
 // === FUNGSI TAMBAH DATA WARGA ===
 void tambahWarga(){ // fungsi tambah data warga ke file.txt
-    system(CLEAR);
     cekKapasistas();
     char nikInput[17];
 
@@ -367,7 +379,12 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
     printf("+=======================================+\n");
     printf("|       MENAMBAHKAN DATA WARGA         |\n");
     printf("+=======================================+\n");
+    printf("--- Masukkan 0 untuk kembali ---\n");
+
     inputString(data[jlhWarga].nama, sizeof(data[jlhWarga].nama), "Nama   :");
+    if (strcmp(data[jlhWarga].nama, "0") == 0){
+        return;
+    }
     do {
         inputAngkaString(nikInput, sizeof(nikInput), "NIK    : ");
         if (cariIndexNIK(nikInput) != -1) {
@@ -376,10 +393,22 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
             continue;
         }
     } while (cariIndexNIK(nikInput) != -1);
+    if (strcmp(nikInput, "0") == 0){
+        return;
+    }
     strcpy(data[jlhWarga].nik, nikInput);
     inputAngkaString(data[jlhWarga].rw, sizeof(data[jlhWarga].rw), "RW     : ");
+    if (strcmp(data[jlhWarga].rw, "0") == 0){
+        return;
+    }
     inputAngkaString(data[jlhWarga].rt, sizeof(data[jlhWarga].rt), "RT     : ");
+    if (strcmp(data[jlhWarga].rt, "0") == 0){
+        return;
+    }
     inputAlamat(data[jlhWarga].alamat, sizeof(data[jlhWarga].alamat), "Alamat : ");
+    if (strcmp(data[jlhWarga].alamat, "0") == 0){
+        return;
+    }
     data[jlhWarga].saldo = 0;
     data[jlhWarga].totalSampahKg = 0.0;
 
@@ -1188,5 +1217,5 @@ void laporanTotalSemua() {
         totalSampah += data[i].totalSampahKg;
     }
     printf("\n=== Laporan Keseluruhan Kelurahan ===\n");
-    printf("Total Nilai Seluruh Sampah: Rp %ld\n", totalSampah);
+    printf("Total Nilai Seluruh Sampah: %.2f\n", totalSampah);
 }
