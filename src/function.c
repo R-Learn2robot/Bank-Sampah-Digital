@@ -134,9 +134,9 @@ void inputString(char *string, int size, const char *perintah) { //fungsi mengec
         }
         string[strcspn(string, "\n")] = '\0';
 
-        if (strcmp(data[jlhWarga].nama, "0") == 0){
+        if (strcmp(string, "0") == 0){
             valid = 1;
-            break;
+            return;
         }
 
         if (strlen(string) == 0) {
@@ -174,8 +174,9 @@ void inputAngkaString(char *nik, int size, const char *perintah) { //fungsi meng
 
         nik[strcspn(nik, "\n")] = '\0';
 
-        if (strcmp(data[jlhWarga].nama, "0") == 0){
+        if (strcmp(nik, "0") == 0){
             valid = 1;
+            return;
         }
 
         if (strlen(nik) == 0) {
@@ -207,8 +208,9 @@ void inputAlamat(char *string, int size, const char *perintah) { //fungsi mengec
         }
         string[strcspn(string, "\n")] = '\0';
 
-        if (strcmp(data[jlhWarga].nama, "0") == 0){
+        if (strcmp(string, "0") == 0){
             valid = 1;
+            return;
         }
 
         if (strlen(string) == 0) {
@@ -435,7 +437,7 @@ void tambahWarga(){ // fungsi tambah data warga ke file.txt
 void tampilkanListWarga() { // fungsi tampilkan list data dari file
     if (jlhWarga == 0) {
         system(CLEAR);
-        printf("belum ada warga yang terdaftar");
+        printf("Belum ada warga yang terdaftar\n");
         return;
     }
 
@@ -452,15 +454,12 @@ void tampilkanListWarga() { // fungsi tampilkan list data dari file
     strcpy(namaFormat, data[i].nama);
     formatNama(namaFormat);
 
-    printf("\n+===============================================+\n");
-    printf("|              DATA WARGA DITEMUKAN            |\n");
-    printf("+----------------------+-----------------------+\n");
-    printf("| %-20s | %-21s |\n", "Nama",   namaFormat);
-    printf("| %-20s | %-21s |\n", "NIK",    data[i].nik);
-    printf("| %-20s | %-21s |\n", "RW",     data[i].rw);
-    printf("| %-20s | %-21s |\n", "RT",     data[i].rt);
-    printf("| %-20s | %-21s |\n", "Alamat", data[i].alamat);
-    printf("| %-20s | %-21d |\n", "Saldo",  data[i].saldo);
+    printf(" %-20s | %-21s \n", "Nama",   namaFormat);
+    printf(" %-20s | %-21s \n", "NIK",    data[i].nik);
+    printf(" %-20s | %-21s \n", "RW",     data[i].rw);
+    printf(" %-20s | %-21s \n", "RT",     data[i].rt);
+    printf(" %-20s | %-21s \n", "Alamat", data[i].alamat);
+    printf(" %-20s | %-21d \n", "Saldo",  data[i].saldo);
     printf("+----------------------+-----------------------+\n");
 }
     }
@@ -1008,9 +1007,9 @@ void tampilRiwayatByNIK() {
 
     //input nik
     char nikCari[17];
+    system(CLEAR);
     printf("=== TAMPILKAN RIWAYAT TRANSAKSI ===\n");
     inputAngkaString(nikCari, sizeof(nikCari), "Masukkan NIK yang ingin dicari: ");
-    getchar();
 
     // Cari nama warga berdasarkan NIK yang dicari
     int idx_nama = cariIndexNIK(nikCari);
@@ -1039,7 +1038,7 @@ void tampilRiwayatByNIK() {
     int ketemu = 0;
     while (fgets(line, sizeof(line), pF)) {
         // Format file: NIK|Jenis|Saldo|Tanggal|
-        int cekFormat = sscanf(line, "%[^|]|%[^|]|%d|%[^|]\n", &nik, &jenis, &saldo, &tanggal);
+        int cekFormat = sscanf(line, "%[^|]|%[^|]|%d|%[^|]\n", nik, jenis, &saldo, tanggal);
         if (cekFormat == 4 && strcmp(nik, nikCari) == 0) { // Cocokkan NIK
             printf("| %-12s | %-10s | %10d |\n", tanggal, jenis, saldo);
             ketemu = 1;
@@ -1049,7 +1048,6 @@ void tampilRiwayatByNIK() {
         printf("Tidak ditemukan riwayat transaksi untuk NIK %s.\n", nikCari);
     }
     fclose(pF);
-    getchar();
 }
 
 // === FUNGSI LAPORAN TOTAL SAMPAH ===
