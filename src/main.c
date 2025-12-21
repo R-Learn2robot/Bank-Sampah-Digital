@@ -38,6 +38,7 @@ int main() {
 
         case 3:
             setorSampah();
+            pause();
             break;
 
         case 4:

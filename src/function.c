@@ -395,11 +395,11 @@ void tambahWarga(){ //tambah data warga ke file.txt
             pause();
             continue;
         }
-        if (strcmp(data[jlhWarga].nik, "0") == 0){
-            return;
-        }
     } while (cariIndexNIK(nikInput) != -1);
     strcpy(data[jlhWarga].nik, nikInput);
+    if (strcmp(data[jlhWarga].nik, "0") == 0){
+        return;
+    }
 
     inputAngkaString(data[jlhWarga].rw, sizeof(data[jlhWarga].rw), "RW     : ");
     if (strcmp(data[jlhWarga].rw, "0") == 0){
@@ -439,11 +439,6 @@ void tambahWarga(){ //tambah data warga ke file.txt
 
 //Fungsi Melihat Data Warga
 void tampilkanListWarga() { //menampilkan list data dari file
-    if (jlhWarga == 0) {
-        system(CLEAR);
-        printf("belum ada warga yang terdaftar");
-        return;
-    }
 
     system(CLEAR);
     printf("\n+===========================+\n");
@@ -494,6 +489,13 @@ void pencarianDataNIK() { //cari data lewat NIK
 void liatDataWarga() { //melihat semua data warga atau spesifik
     int input;
     int berjalan = 1;
+
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
+        return;
+    }
+
     do {
         system(CLEAR);
         printf("+====================================+\n");
@@ -534,6 +536,12 @@ void setorSampah() {
     int hargaPerKg;
     int totalSaldo;
     int inputMenu;
+
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
+        return;
+    }
 
     system(CLEAR);
     printf("+===========================+\n");
@@ -665,7 +673,6 @@ void setorSampah() {
     printf("+-------------------------------+---------------------------+\n");
     printf("| Setoran berhasil dicatat.                                 |\n");
     printf("+===========================================================+\n");
-    pause();
 }
 
 //Fungsi Hapus Data Warga
@@ -727,6 +734,13 @@ void hapusSemua() {//hapus semua data
 void hapusDataWarga() {//hapus data warga
     int input;
     int berjalan = 1;
+
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
+        return;
+    }
+
     do
     {
         system(CLEAR);
@@ -842,6 +856,12 @@ void editDataWarga() {
     int input;
     int berjalan = 1;
 
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
+        return;
+    }
+
     do {
         system(CLEAR);
         printf("+==========================+\n");
@@ -884,6 +904,13 @@ void tarikSaldo() {
     int saldoDiTukar;
     int temp;
     char tanggal[15];
+
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
+        pause();
+        return;
+    }
     
     system(CLEAR);
     printf("+=======================+\n");
@@ -1008,6 +1035,12 @@ void tampilRiwayatByNIK() {
     FILE *pF = fopen(FILE_TRANSAKSI, "r");
     if (!pF) {
         printf("File transaksi (%s) tidak ditemukan.\n", FILE_TRANSAKSI);
+        return;
+    }
+
+    if (jlhWarga == 0) {
+        system(CLEAR);
+        printf("Belum ada warga yang terdaftar\n");
         return;
     }
 
