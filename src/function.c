@@ -678,7 +678,7 @@ void setorSampah() {
 //Fungsi Hapus Data Warga
 void hapusByNIK() {//berdasarkan NIK
     char cariNIK[17];
-    char pilih;
+    char pilih[10];
     system(CLEAR);
     printf("\n+=======================================================+\n");
     printf("|   PENGHAPUSAN DATA WARGA BERDASARKAN NIK               |\n");
@@ -704,9 +704,8 @@ void hapusByNIK() {//berdasarkan NIK
     printf("Alamat : %-21s\n", data[index].alamat);
     printf("Saldo  : %-21d\n", data[index].saldo);
     printf("+----------------------+-----------------------+\n");
-    printf("Anda yakin hapus data warga ini (y/n): ");
-    scanf(" %c", &pilih);
-    if (pilih == 'y' || pilih == 'Y') {
+    inputString(pilih, sizeof(pilih), "Anda yakin hapus data warga ini (y/n): ");
+    if (strcmp(pilih, "y") == 0) {
         for (int i = index; i < jlhWarga - 1; i++) {
             data[i] = data[i + 1];
         }
