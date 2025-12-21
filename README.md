@@ -53,10 +53,25 @@ Anggota:
 | Jalankan (Windows)   | `bank_sampah.exe`                  |
 
 🎯 Target Penerapan Aplikasi
-| Calon Pengguna              | Examples                |
-| --------------------------- | ----------------------- |
-| RT/RW & Pengurus Lingkungan | Bank Sampah warga       |
-| Organisasi Sosial           | PKK, Karang Taruna      |
-| Sekolah                     | Program 3R & eco-school |
-| Komunitas Lingkungan        | Volunteer, Eco movement |
+
+Aplikasi Bank Sampah Digital ini dibuat untuk membantu Admin Bank Sampah Kelurahan Nagri Kaler dalam melakukan pencatatan dan pengelolaan data bank sampah secara sederhana menggunakan bahasa C berbasis terminal.
+| Pengguna                                | Peran                                                                |
+| --------------------------------------- | -------------------------------------------------------------------- |
+| Admin Bank Sampah Kelurahan Nagri Kaler | Mengelola data warga, mencatat transaksi sampah, dan melihat laporan |
+
+📌 Catatan:
+Aplikasi ini tidak digunakan langsung oleh warga, seluruh proses input dan pengelolaan data dilakukan oleh admin.
+
+🏘️ Lingkup Penerapan
+
+Aplikasi ini dirancang dengan lingkup:
+
+Satu kelurahan (Kelurahan Nagri Kaler)
+
+Penggunaan oleh satu atau beberapa admin bank sampah
+
+Skala kecil dan sederhana
+
+Aplikasi ini bertujuan untuk membantu proses administrasi bank sampah agar lebih rapi dan terdata.
+
 
