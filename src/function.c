@@ -1203,8 +1203,6 @@ void laporanPerRT() {
 
     char rwInput[10], rtInput[10];
     inputAngkaString(rwInput, sizeof(rwInput), "Masukkan RW: ");
-    inputAngkaString(rtInput, sizeof(rtInput), "Masukkan RT: ");
-
     //Cek apakah kombinasi RW/RT terdaftar
     int adaRW = 0;
     for (int i = 0; i < jlhWarga; i++) {
@@ -1213,7 +1211,8 @@ void laporanPerRT() {
             break;
         }
     }
-
+    
+    inputAngkaString(rtInput, sizeof(rtInput), "Masukkan RT: ");
     if (!adaRW) {
         printf("\nRW %s BELUM TERDAFTAR.\n", rwInput);
         return;
