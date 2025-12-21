@@ -10,9 +10,9 @@
 // Struktur Warga: Ganti poin menjadi saldo
 typedef struct {
     char nama[101];
-    char nik[17];
-    char rt[3];
-    char rw[3];
+    char nik[20];
+    char rt[10];
+    char rw[10];
     char alamat[101];
     int saldo;
     float totalSampahKg;
@@ -22,6 +22,7 @@ typedef struct {
     char nik[20];
     char jenis[10];   
     int saldo;
+    float berat;  
     char tanggal[15]; 
 } RiwayatTransaksi;
 
