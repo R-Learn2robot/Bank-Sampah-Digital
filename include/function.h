@@ -90,12 +90,6 @@ void tarikSaldo();
 // fungsi riwayat transaksi
 void tampilRiwayatByNIK();
 
-// fungsi tarik saldo
-void tarikSaldo();
-
-// fungsi riwayat transaksi
-void tampilRiwayatByNIK();
-
 //Laporan total sampah (berdasarkan BERAT kg)
 void menuLaporanData();
 void laporanTotalSemua();
